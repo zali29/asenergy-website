@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASENERGY — Industrial Battery Energy Storage</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & BASE ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Barlow',sans-serif;color:#0A0A0A;background:#FFF;line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+strong{color:#0A0A0A;font-weight:700}
+
+/* ===== TYPOGRAPHY ===== */
+h1,h2,h3,h4,h5,h6{font-family:'Bebas Neue',sans-serif;letter-spacing:1px;line-height:1.1}
+.label{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:#888;font-size:.85rem;display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.label::before{content:'';width:30px;height:2px;background:#2E7D32}
+.section-title{font-size:clamp(2rem,4vw,3.2rem);margin-bottom:16px}
+.accent{color:#2E7D32}
+
+/* ===== BUTTONS ===== */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 32px;border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:2px;font-size:.9rem;border:2px solid transparent;cursor:pointer;transition:all .2s}
+.btn-primary{background:#0A0A0A;color:#FFF;border-color:#0A0A0A}
+.btn-primary:hover{background:#2E7D32;color:#0A0A0A;border-color:#2E7D32}
+.btn-outline{background:transparent;color:#0A0A0A;border-color:#0A0A0A}
+.btn-outline:hover{background:#0A0A0A;color:#FFF}
+.btn-outline-white{background:transparent;color:#FFF;border-color:#FFF}
+.btn-outline-white:hover{background:#2E7D32;color:#FFF;border-color:#2E7D32}
+.btn-green{background:#2E7D32;color:#FFF;border-color:#2E7D32}
+.btn-green:hover{background:#1B5E20;border-color:#1B5E20}
+.btn-sm{padding:10px 20px;font-size:.8rem}
+
+/* ===== LAYOUT ===== */
+.container{max-width:1280px;margin:0 auto;padding:0 24px}
+section{padding:80px 0}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.bg-off{background:#F8F8F8}
+.bg-black{background:#0A0A0A;color:#FFF}
+.text-center{text-align:center}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeRight{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.fade-up{animation:fadeUp .7s ease forwards}
+.fade-right{animation:fadeRight .7s ease forwards}
+.delay-1{animation-delay:.1s;opacity:0}
+.delay-2{animation-delay:.2s;opacity:0}
+.delay-3{animation-delay:.3s;opacity:0}
+.delay-4{animation-delay:.4s;opacity:0}
+.delay-5{animation-delay:.5s;opacity:0}
+
+/* ===== NAVIGATION ===== */
+.nav{position:fixed;top:0;left:0;right:0;height:72px;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid #E0E0E0;z-index:1000;display:flex;align-items:center}
+.nav .container{display:flex;align-items:center;justify-content:space-between;width:100%}
+.nav-logo img{height:40px}
+.nav-links{display:flex;gap:32px;align-items:center}
+.nav-links a{font-family:'Barlow Condensed',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:2px;font-size:.85rem;color:#0A0A0A;transition:color .2s;cursor:pointer}
+.nav-links a:hover,.nav-links a.active{color:#2E7D32}
+.nav-cta .btn{padding:10px 24px;font-size:.8rem}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px}
+.hamburger span{width:24px;height:2px;background:#0A0A0A;transition:all .2s}
+.mobile-menu{display:none;position:fixed;top:72px;left:0;right:0;background:#FFF;border-bottom:1px solid #E0E0E0;padding:24px;flex-direction:column;gap:16px;z-index:999}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Barlow Condensed',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:2px;font-size:1rem;padding:8px 0;cursor:pointer}
+
+/* ===== PAGE SYSTEM ===== */
+.page{display:none}
+.page.active{display:block}
+
+/* ===== HERO ===== */
+.hero{position:relative;padding:140px 0 80px;min-height:90vh;overflow:hidden;background:#FFF}
+.hero::after{content:'';position:absolute;top:0;right:0;bottom:0;width:55%;background:#0A0A0A;clip-path:polygon(12% 0,100% 0,100% 100%,0 100%);z-index:0}
+.hero .container{position:relative;z-index:1}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:#F8F8F8;border:1px solid #E0E0E0;padding:8px 16px;border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:2px;font-size:.75rem;margin-bottom:24px}
+.hero-badge .dot{width:8px;height:8px;background:#2E7D32;border-radius:50%;animation:pulse 2s infinite}
+.hero h1{font-size:clamp(3rem,6vw,5.5rem);line-height:.95;margin-bottom:24px}
+.hero h1 span{display:block}
+.hero-sub{font-size:1.1rem;color:#555;margin-bottom:32px;max-width:480px;line-height:1.7}
+.hero-btns{display:flex;gap:16px;margin-bottom:48px;flex-wrap:wrap}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.hero-stat .num{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:#2E7D32;line-height:1}
+.hero-stat .txt{font-size:.78rem;color:#666;text-transform:uppercase;letter-spacing:1px;font-family:'Barlow Condensed',sans-serif}
+
+/* Hero Right Panel */
+.hero-panel{background:#111;border-radius:3px;padding:32px;color:#FFF;position:relative;overflow:hidden}
+.hero-panel-img{width:100%;height:220px;object-fit:cover;border-radius:3px;margin-bottom:20px;border:1px solid #2A2A2A}
+.hero-panel-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:2px;font-size:.8rem;color:#888;margin-bottom:24px}
+.hero-metrics{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:0}
+.hero-metric{background:#1A1A1A;border:1px solid #2A2A2A;border-radius:3px;padding:16px;text-align:center}
+.hero-metric .metric-val{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:#FFF;line-height:1}
+.hero-metric .metric-label{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;color:#888;text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+.hero-plug-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(46,125,50,.15);border:1px solid rgba(46,125,50,.35);color:#2E7D32;padding:8px 16px;border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:2px;font-size:.75rem;margin-top:20px}
+
+/* Product Images */
+.prod-img-wrap{width:100%;height:180px;overflow:hidden;border-radius:3px;margin-bottom:16px;background:#F0F0F0;display:flex;align-items:center;justify-content:center}
+.prod-img-wrap img{width:100%;height:100%;object-fit:cover}
+.product-card:hover .prod-img-wrap{background:#1A1A1A}
+.ep-img-wrap{width:100%;height:140px;overflow:hidden;border-radius:3px;margin-bottom:12px;background:#F8F8F8;display:flex;align-items:center;justify-content:center}
+.ep-img-wrap img{max-height:100%;object-fit:contain;padding:8px}
+.ep-card:hover .ep-img-wrap{background:#1A1A1A}
+.detail-display-img{width:100%;max-height:350px;object-fit:contain;border-radius:3px;margin-bottom:16px}
+.app-visual-img{width:100%;height:200px;object-fit:cover;border-radius:3px;margin-bottom:16px;border:1px solid #2A2A2A}
+.enercube-img{width:100%;height:250px;object-fit:cover;border-radius:3px;border:1px solid #2A2A2A}
+
+/* ===== BENEFITS CARDS ===== */
+.benefit-card{background:#FFF;border:1px solid #E0E0E0;border-radius:3px;padding:32px;transition:all .2s}
+.benefit-card:hover{background:#0A0A0A;border-color:#2A2A2A}
+.benefit-card:hover .benefit-icon{background:rgba(46,125,50,.15);border-color:rgba(46,125,50,.35)}
+.benefit-card:hover .benefit-num{color:#2E7D32}
+.benefit-card:hover h4{color:#FFF}
+.benefit-card:hover p{color:#999}
+.benefit-icon{width:48px;height:48px;border:1px solid #E0E0E0;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:16px;transition:all .2s}
+.benefit-num{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:#0A0A0A;line-height:1;margin-bottom:8px;transition:color .2s}
+.benefit-card h4{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:1px;font-size:.9rem;margin-bottom:8px;transition:color .2s}
+.benefit-card p{font-size:.85rem;color:#666;line-height:1.5;transition:color .2s}
+
+/* ===== PRODUCT CARDS ===== */
+.product-card{background:#FFF;border:1px solid #E0E0E0;border-radius:3px;padding:32px;transition:all .2s;position:relative;cursor:pointer}
+.product-card:hover{background:#0A0A0A;border-color:#2A2A2A}
+.product-card:hover .prod-name{color:#2E7D32}
+.product-card:hover .prod-kw{color:#FFF}
+.product-card:hover .prod-desc{color:#999}
+.product-card:hover .prod-spec-box{background:#1A1A1A;border-color:#2A2A2A}
+.product-card:hover .prod-spec-box .spec-val{color:#FFF}
+.product-card:hover .prod-spec-box .spec-lbl{color:#888}
+.product-card:hover .btn-outline{color:#FFF;border-color:#FFF}
+.prod-badge{position:absolute;top:16px;right:16px;padding:4px 12px;border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:2px;font-size:.65rem}
+.prod-badge.pro{background:#0A0A0A;color:#FFF}
+.prod-badge.flagship{background:#2E7D32;color:#FFF}
+.prod-name{font-family:'Bebas Neue',sans-serif;font-size:2rem;transition:color .2s}
+.prod-kw{font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:#0A0A0A;line-height:1;margin:8px 0;transition:color .2s}
+.prod-desc{font-size:.85rem;color:#666;margin-bottom:16px;line-height:1.5;transition:color .2s}
+.prod-specs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px}
+.prod-spec-box{background:#F8F8F8;border:1px solid #E0E0E0;border-radius:2px;padding:10px;text-align:center;transition:all .2s}
+.prod-spec-box .spec-val{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;transition:color .2s}
+.prod-spec-box .spec-lbl{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;text-transform:uppercase;letter-spacing:1px;color:#888;transition:color .2s}
+
+/* EP Cards */
+.ep-card{background:#FFF;border:1px solid #E0E0E0;border-radius:3px;padding:24px;transition:all .2s;position:relative;border-top:3px solid #E0E0E0}
+.ep-card:hover{background:#0A0A0A;border-color:#2A2A2A}
+.ep-card:hover h4,.ep-card:hover .ep-kw{color:#FFF}
+.ep-card:hover p{color:#999}
+.ep-card.yellow{border-top-color:#F9A825}
+.ep-card.navy{border-top-color:#1565C0}
+.ep-card.orange{border-top-color:#C44000}
+.ep-card.grey{border-top-color:#9E9E9E}
+.ep-kw{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:#0A0A0A;line-height:1;margin:8px 0;transition:color .2s}
+.ep-card h4{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;transition:color .2s}
+.ep-card p{font-size:.82rem;color:#666;line-height:1.5;transition:color .2s}
+.ep-specs-list{margin-top:12px;font-size:.78rem;color:#888}
+.ep-specs-list span{display:block;padding:2px 0}
+
+/* EnerCube Card */
+.enercube-card{background:#0A0A0A;border-radius:3px;padding:48px;color:#FFF;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;margin-top:32px}
+.enercube-card h3{font-size:2.5rem;color:#2E7D32}
+.enercube-card p{color:#999;font-size:.9rem;line-height:1.6;margin:12px 0}
+.enercube-features{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.enercube-features span{background:#1A1A1A;border:1px solid #2A2A2A;padding:6px 12px;border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-size:.75rem;text-transform:uppercase;letter-spacing:1px;color:#CCC}
+.enercube-right{background:#111;border:1px solid #2A2A2A;border-radius:3px;padding:32px;text-align:center}
+.enercube-right .big-icon{font-size:4rem;margin-bottom:16px}
+
+/* ===== COMPARISON TABLE ===== */
+.comparison-section{background:#0A0A0A;color:#FFF;padding:80px 0}
+.comp-table{width:100%;border-collapse:collapse;margin-top:32px}
+.comp-table th,.comp-table td{padding:16px 20px;text-align:left;font-size:.9rem;border-bottom:1px solid #1A1A1A}
+.comp-table thead th{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:2px;font-size:.85rem;padding:20px}
+.comp-table thead th:nth-child(2){background:#2E7D32;color:#FFF;border-bottom:3px solid #2E7D32}
+.comp-table thead th:nth-child(3){background:#1A1A1A;color:#888}
+.comp-table tbody td:nth-child(2){background:rgba(46,125,50,.05);border-bottom:1px solid rgba(46,125,50,.15)}
+.comp-table tbody td:nth-child(3){color:#666}
+.comp-table tbody tr:hover td{background:rgba(255,255,255,.03)}
+.comp-check{color:#2E7D32;font-weight:700}
+.comp-x{color:#555}
+.cost-tag{display:inline-block;background:rgba(46,125,50,.15);color:#2E7D32;padding:4px 10px;border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.75rem;text-transform:uppercase;letter-spacing:1px;margin-left:8px}
+
+/* ===== USE CASES ===== */
+.usecase-card{background:#FFF;border:1px solid #E0E0E0;border-radius:3px;padding:32px;position:relative;overflow:hidden;transition:all .2s;cursor:pointer}
+.usecase-card:hover{background:#0A0A0A;border-color:#2A2A2A}
+.usecase-card:hover h3{color:#FFF}
+.usecase-card:hover p{color:#999}
+.usecase-card:hover .usecase-num{color:rgba(255,255,255,.05)}
+.usecase-card:hover h3::after{width:40px;background:#2E7D32}
+.usecase-num{position:absolute;top:16px;right:16px;font-family:'Bebas Neue',sans-serif;font-size:4rem;color:rgba(0,0,0,.04);line-height:1;transition:color .2s}
+.usecase-card h3{font-size:1.3rem;margin-bottom:8px;position:relative;padding-bottom:12px;transition:color .2s}
+.usecase-card h3::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:#2E7D32;transition:width .3s}
+.usecase-card p{font-size:.85rem;color:#666;line-height:1.5;margin-bottom:12px;transition:color .2s}
+.model-pill{display:inline-block;padding:4px 10px;border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.7rem;text-transform:uppercase;letter-spacing:1px;background:rgba(46,125,50,.1);color:#2E7D32;border:1px solid rgba(46,125,50,.35);margin-right:4px}
+
+/* ===== HOW IT WORKS ===== */
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:32px}
+.step-card{background:#FFF;border:1px solid #E0E0E0;border-radius:3px;padding:32px;text-align:center;transition:all .2s;position:relative}
+.step-card:hover{background:#0A0A0A;border-color:#2A2A2A}
+.step-card:hover h4,.step-card:hover .step-num{color:#FFF}
+.step-card:hover p{color:#999}
+.step-card:hover .step-icon{background:rgba(46,125,50,.15);border-color:rgba(46,125,50,.35)}
+.step-num{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:#2E7D32;margin-bottom:12px}
+.step-icon{width:56px;height:56px;border:1px solid #E0E0E0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin:0 auto 16px;transition:all .2s}
+.step-card h4{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:1px;font-size:.9rem;margin-bottom:8px;transition:color .2s}
+.step-card p{font-size:.82rem;color:#666;line-height:1.5;transition:color .2s}
+.step-arrow{position:absolute;right:-18px;top:50%;transform:translateY(-50%);color:#2E7D32;font-size:1.2rem;z-index:2}
+
+/* ===== TRUST SECTION ===== */
+.trust-card{background:#FFF;border:1px solid #E0E0E0;border-radius:3px;padding:28px;transition:all .2s}
+.trust-card:hover{background:#0A0A0A;border-color:#2A2A2A}
+.trust-card:hover h4{color:#FFF}
+.trust-card:hover p{color:#999}
+.trust-card:hover .trust-icon{color:#2E7D32}
+.trust-icon{font-size:1.5rem;margin-bottom:12px;transition:color .2s}
+.trust-card h4{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:1px;font-size:.85rem;margin-bottom:6px;transition:color .2s}
+.trust-card p{font-size:.8rem;color:#666;line-height:1.4;transition:color .2s}
+.cert-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px;justify-content:center}
+.cert-pill{padding:6px 14px;border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.72rem;text-transform:uppercase;letter-spacing:1px;background:rgba(46,125,50,.08);color:#2E7D32;border:1px solid rgba(46,125,50,.25)}
+
+/* ===== CTA BANNER ===== */
+.cta-banner{background:#2E7D32;padding:60px 0;position:relative;overflow:hidden}
+.cta-banner::before{content:'';position:absolute;top:0;right:0;bottom:0;width:60%;background:rgba(0,0,0,.03);clip-path:polygon(20% 0,100% 0,100% 100%,0 100%)}
+.cta-banner .container{position:relative;z-index:1;text-align:center}
+.cta-banner h2{font-size:clamp(2rem,4vw,3.5rem);color:#FFF;margin-bottom:12px}
+.cta-banner p{color:rgba(255,255,255,.85);font-size:1rem;margin-bottom:28px;max-width:600px;margin-left:auto;margin-right:auto}
+.cta-banner .btn-primary{background:#0A0A0A;border-color:#0A0A0A}
+.cta-banner .btn-primary:hover{background:#FFF;color:#0A0A0A;border-color:#FFF}
+.cta-banner .btn-outline-white:hover{background:#FFF;color:#2E7D32}
+
+/* ===== FOOTER ===== */
+.footer{background:#0A0A0A;color:#999;padding:60px 0 30px}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.footer-brand img{height:36px;filter:invert(1) hue-rotate(180deg);margin-bottom:16px}
+.footer-brand p{font-size:.85rem;line-height:1.6;color:#666}
+.footer h5{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:2px;font-size:.8rem;color:#2E7D32;margin-bottom:16px}
+.footer ul li{margin-bottom:8px}
+.footer ul li a{font-size:.85rem;color:#666;transition:color .2s;cursor:pointer}
+.footer ul li a:hover{color:#FFF}
+.footer-bottom{border-top:1px solid #1A1A1A;padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-bottom span{font-size:.78rem;color:#555}
+.footer-bottom .accent{color:#2E7D32}
+
+/* ===== INNER PAGE HEROES ===== */
+.page-hero{background:#0A0A0A;color:#FFF;padding:140px 0 60px;text-align:center}
+.page-hero h1{font-size:clamp(2.5rem,5vw,4.5rem);margin-bottom:12px}
+.page-hero p{color:#888;font-size:1rem;max-width:600px;margin:0 auto}
+
+/* ===== PRODUCTS PAGE ===== */
+.prod-compare{width:100%;border-collapse:collapse;margin-top:32px}
+.prod-compare th,.prod-compare td{padding:14px 20px;text-align:center;font-size:.85rem;border-bottom:1px solid #E0E0E0}
+.prod-compare thead th{background:#0A0A0A;color:#FFF;font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:2px;font-size:.8rem}
+.prod-compare thead th:first-child{text-align:left;background:#0A0A0A}
+.prod-compare thead th.ht375pro{background:#2E7D32}
+.prod-compare thead th.ht500{background:#C44000}
+.prod-compare tbody td:first-child{text-align:left;font-weight:600;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:1px}
+.prod-compare tbody tr:nth-child(even){background:#F8F8F8}
+.prod-compare tbody tr:hover{background:rgba(46,125,50,.05)}
+
+/* ===== PRODUCT DETAIL ===== */
+.detail-hero{background:#0A0A0A;color:#FFF;padding:140px 0 60px}
+.detail-hero .grid-2{align-items:start}
+.detail-label{font-family:'Barlow Condensed',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:3px;font-size:.8rem;color:#888;margin-bottom:8px}
+.detail-hero h1{font-size:clamp(3rem,6vw,4.5rem);color:#2E7D32;margin-bottom:8px}
+.detail-tagline{font-family:'Barlow Condensed',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:2px;font-size:.9rem;color:#CCC;margin-bottom:16px}
+.detail-desc{color:#999;font-size:.95rem;line-height:1.7;margin-bottom:24px}
+.detail-quick-specs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px}
+.detail-qs{background:#1A1A1A;border:1px solid #2A2A2A;border-radius:2px;padding:12px;text-align:center}
+.detail-qs .qs-val{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#FFF}
+.detail-qs .qs-lbl{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;text-transform:uppercase;letter-spacing:1px;color:#666}
+.detail-display{background:#111;border:1px solid #2A2A2A;border-radius:3px;padding:40px;text-align:center}
+.detail-display .big-emoji{font-size:5rem;margin-bottom:16px}
+.detail-display h3{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:#2E7D32}
+
+/* Detail Specs Table */
+.specs-table{width:100%;border-collapse:collapse}
+.specs-table thead th{background:#0A0A0A;color:#FFF;padding:14px 20px;text-align:left;font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:2px;font-size:.8rem}
+.specs-table tbody tr:nth-child(even){background:#F8F8F8}
+.specs-table tbody tr:hover{background:rgba(46,125,50,.05)}
+.specs-table td{padding:12px 20px;font-size:.88rem;border-bottom:1px solid #E0E0E0}
+.specs-table td:first-child{font-weight:600;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:1px;font-size:.82rem;color:#555}
+
+/* FAQ Accordion */
+.faq-item{border:1px solid #E0E0E0;border-radius:3px;margin-bottom:8px;overflow:hidden}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:1px;font-size:.9rem;transition:all .2s}
+.faq-q:hover{background:#F8F8F8}
+.faq-q .arrow{transition:transform .2s;font-size:.8rem}
+.faq-item.open .faq-q{background:#0A0A0A;color:#2E7D32}
+.faq-item.open .arrow{transform:rotate(180deg);color:#2E7D32}
+.faq-a{display:none;padding:16px 20px;font-size:.88rem;color:#555;line-height:1.7;border-top:1px solid #E0E0E0}
+.faq-item.open .faq-a{display:block}
+
+/* ===== APPLICATIONS PAGE ===== */
+.app-section{padding:80px 0}
+.app-visual{background:#0A0A0A;border-radius:3px;padding:48px;text-align:center;color:#FFF}
+.app-visual .app-icon{font-size:4rem;margin-bottom:16px}
+.app-visual .app-sub{font-family:'Barlow Condensed',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:2px;font-size:.75rem;color:#2E7D32;margin-bottom:8px}
+.app-visual .app-main{font-family:'Bebas Neue',sans-serif;font-size:2rem}
+.app-features{margin:20px 0}
+.app-feature-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #E0E0E0}
+.app-feature-row:last-child{border:none}
+.app-feature-dot{width:8px;height:8px;background:#2E7D32;border-radius:50%;flex-shrink:0}
+.app-feature-row h5{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:1px;font-size:.85rem}
+.app-feature-row p{font-size:.82rem;color:#666}
+
+/* ===== ABOUT PAGE ===== */
+.mission-text{font-size:1.1rem;line-height:1.8;color:#444}
+.value-card{background:#FFF;border:1px solid #E0E0E0;border-radius:3px;padding:32px;transition:all .2s}
+.value-card:hover{background:#0A0A0A;border-color:#2A2A2A}
+.value-card:hover h3,.value-card:hover .value-num{color:#FFF}
+.value-card:hover p{color:#999}
+.value-num{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:#E0E0E0;margin-bottom:8px;transition:color .2s}
+.value-card h3{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:2px;font-size:1rem;margin-bottom:12px;transition:color .2s}
+.value-card p{font-size:.88rem;color:#666;line-height:1.6;transition:color .2s}
+
+/* ===== CONTACT PAGE ===== */
+.contact-layout{display:grid;grid-template-columns:1fr 1fr;min-height:600px}
+.contact-left{background:#0A0A0A;color:#FFF;padding:48px}
+.contact-right{background:#FFF;padding:48px}
+.contact-check{display:flex;align-items:center;gap:10px;margin-bottom:12px;font-size:.9rem;color:#CCC}
+.contact-check .check{color:#2E7D32;font-weight:700}
+.contact-info{margin-top:32px}
+.contact-info-item{display:flex;align-items:center;gap:10px;margin-bottom:12px;font-size:.88rem;color:#999}
+.contact-info-item .ci-icon{color:#2E7D32}
+.response-box{background:#111;border:1px solid rgba(46,125,50,.35);border-radius:3px;padding:20px;margin-top:24px}
+.response-box h5{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:1px;font-size:.8rem;color:#2E7D32;margin-bottom:6px}
+.response-box p{font-size:.82rem;color:#888;line-height:1.5}
+.form-title{font-family:'Bebas Neue',sans-serif;font-size:2rem;margin-bottom:24px}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-family:'Barlow Condensed',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:1px;font-size:.78rem;color:#555;margin-bottom:6px}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:12px 16px;border:1px solid #E0E0E0;border-radius:2px;font-family:'Barlow',sans-serif;font-size:.9rem;background:#F8F8F8;transition:border-color .2s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:#2E7D32}
+.form-group textarea{min-height:100px;resize:vertical}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-trust{display:flex;align-items:center;gap:8px;font-size:.78rem;color:#888;margin-top:12px}
+.form-success{display:none;text-align:center;padding:40px;border:1px solid rgba(46,125,50,.35);border-radius:3px;background:rgba(46,125,50,.05)}
+.form-success h3{color:#2E7D32;font-size:2rem;margin-bottom:8px}
+.form-success p{color:#555;font-size:.95rem}
+
+/* ===== ENERCUBE PRODUCTS PAGE ===== */
+.enercube-section{padding:80px 0}
+.enercube-detail{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.enercube-desc{font-size:.92rem;color:#555;line-height:1.7}
+.enercube-feat-list{margin:20px 0}
+.enercube-feat-list li{display:flex;align-items:center;gap:8px;padding:6px 0;font-size:.88rem;color:#444}
+.enercube-feat-list li::before{content:'';width:6px;height:6px;background:#2E7D32;border-radius:50%;flex-shrink:0}
+.config-table{width:100%;border-collapse:collapse;margin-top:16px}
+.config-table th,.config-table td{padding:12px 16px;text-align:center;font-size:.85rem;border-bottom:1px solid #E0E0E0}
+.config-table thead th{background:#0A0A0A;color:#FFF;font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:1px;font-size:.78rem}
+.config-table tbody tr:nth-child(even){background:#F8F8F8}
+.config-table tbody tr:hover{background:rgba(46,125,50,.05)}
+.general-specs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:20px}
+.gen-spec{display:flex;justify-content:space-between;padding:8px 12px;background:#F8F8F8;border-radius:2px;font-size:.82rem}
+.gen-spec .gs-label{color:#888;font-family:'Barlow Condensed',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:1px;font-size:.75rem}
+.gen-spec .gs-val{font-weight:600;color:#0A0A0A}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1024px){
+.hero-grid,.grid-2,.enercube-card,.enercube-detail,.contact-layout{grid-template-columns:1fr}
+.hero::after{display:none}
+.hero-panel{margin-top:32px}
+.hero-stats{grid-template-columns:repeat(2,1fr)}
+.grid-3{grid-template-columns:1fr 1fr}
+.grid-4{grid-template-columns:1fr 1fr}
+.steps-grid{grid-template-columns:1fr 1fr}
+.step-arrow{display:none}
+.footer-grid{grid-template-columns:1fr 1fr}
+.detail-quick-specs{grid-template-columns:repeat(2,1fr)}
+.general-specs{grid-template-columns:1fr}
+}
+
+@media(max-width:768px){
+.nav-links,.nav-cta{display:none}
+.hamburger{display:flex}
+.hero{padding:100px 0 60px;min-height:auto}
+.hero h1{font-size:2.8rem}
+.hero-stats{grid-template-columns:1fr 1fr}
+.grid-3,.grid-4,.steps-grid{grid-template-columns:1fr}
+.footer-grid{grid-template-columns:1fr}
+.comp-table,.prod-compare,.config-table,.specs-table{display:block;overflow-x:auto}
+.form-row{grid-template-columns:1fr}
+.contact-left,.contact-right{padding:32px}
+.detail-hero .grid-2{grid-template-columns:1fr}
+.detail-quick-specs{grid-template-columns:repeat(2,1fr)}
+.page-hero{padding:110px 0 40px}
+.page-hero h1{font-size:2.5rem}
+}
+
+@media(max-width:480px){
+.hero h1{font-size:2.2rem}
+.hero-stats{grid-template-columns:1fr}
+.prod-kw{font-size:2.5rem}
+.section-title{font-size:1.8rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAVIGATION ===== -->
+<nav class="nav">
+<div class="container">
+<a class="nav-logo" onclick="showPage('home')" style="cursor:pointer"><img src="logo.png" alt="ASENERGY"></a>
+<div class="nav-links">
+<a onclick="showPage('home')" data-page="home">Home</a>
+<a onclick="showPage('products')" data-page="products">Products</a>
+<a onclick="showPage('applications')" data-page="applications">Applications</a>
+<a onclick="showPage('about')" data-page="about">About</a>
+<a onclick="showPage('contact')" data-page="contact">Contact</a>
+</div>
+<div class="nav-cta"><button class="btn btn-primary btn-sm" onclick="showPage('contact')">Get a Quote</button></div>
+<div class="hamburger" onclick="toggleMobile()"><span></span><span></span><span></span></div>
+</div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+<a onclick="showPage('home');closeMobile()">Home</a>
+<a onclick="showPage('products');closeMobile()">Products</a>
+<a onclick="showPage('applications');closeMobile()">Applications</a>
+<a onclick="showPage('about');closeMobile()">About</a>
+<a onclick="showPage('contact');closeMobile()">Contact</a>
+<button class="btn btn-primary btn-sm" onclick="showPage('contact');closeMobile()" style="width:100%">Get a Quote</button>
+</div>
+
+<!-- ==================== HOME PAGE ==================== -->
+<div class="page active" id="page-home">
+
+<!-- Hero -->
+<section class="hero">
+<div class="container">
+<div class="hero-grid">
+<div class="hero-left">
+<div class="hero-badge fade-up"><span class="dot"></span> Revolutionising Construction Sites</div>
+<h1 class="fade-up delay-1"><span>POWERFUL</span><span>DIESEL-FREE</span><span>ENERGY</span></h1>
+<p class="hero-sub fade-up delay-2">Clean, quiet, high-performance battery systems for cranes, hoists &amp; construction sites. Drop the diesel. Cut costs by 60%.</p>
+<div class="hero-btns fade-up delay-3">
+<button class="btn btn-primary" onclick="showPage('contact')">Get a Quote</button>
+<button class="btn btn-outline" onclick="showPage('products')">View Products</button>
+</div>
+<div class="hero-stats fade-up delay-4">
+<div class="hero-stat"><div class="num" data-count="60">0</div><div class="txt">% Cost Reduction</div></div>
+<div class="hero-stat"><div class="num" data-count="80">0</div><div class="txt">% Less Emissions</div></div>
+<div class="hero-stat"><div class="num" data-count="45" data-prefix="&lt;">0</div><div class="txt">dB Max Noise</div></div>
+<div class="hero-stat"><div class="num" data-count="10" data-suffix="+">0</div><div class="txt">Yr Battery Life</div></div>
+</div>
+</div>
+<div class="hero-right fade-up delay-3">
+<div class="hero-panel" style="padding:0;overflow:hidden">
+<img src="ht-onsite.png" alt="ASENERGY HT375 on site at Cypress Palms Meriton Gold Coast" style="width:100%;height:320px;object-fit:cover">
+<div style="padding:20px 24px;background:#111">
+<div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:#2E7D32">HT375 ON SITE</div>
+<div style="font-family:'Barlow Condensed',sans-serif;font-size:.8rem;color:#888;text-transform:uppercase;letter-spacing:1px;margin-top:4px">Powering tower cranes &amp; hoists at Cypress Palms Meriton Gold Coast Project</div>
+<div class="hero-plug-badge" style="margin-top:12px">&#9889; Plug &amp; Play Ready</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Benefits -->
+<section class="bg-off">
+<div class="container">
+<div class="label">Built for the Job Site</div>
+<h2 class="section-title">WHY ASENERGY</h2>
+<div class="grid-3" style="margin-top:32px">
+<div class="benefit-card">
+<div class="benefit-icon">&#128176;</div>
+<div class="benefit-num">60%</div>
+<h4>Lower Costs</h4>
+<p>Dramatically reduce your operating costs compared to diesel generators. No fuel, minimal maintenance.</p>
+</div>
+<div class="benefit-card">
+<div class="benefit-icon">&#127793;</div>
+<div class="benefit-num">80%</div>
+<h4>Fewer Emissions</h4>
+<p>Eliminate diesel fumes from your site. Cleaner air for workers, neighbours, and the environment.</p>
+</div>
+<div class="benefit-card">
+<div class="benefit-icon">&#128264;</div>
+<div class="benefit-num">&lt;45dB</div>
+<h4>Silent Operation</h4>
+<p>Quieter than a conversation. Work in noise-sensitive areas without restrictions or complaints.</p>
+</div>
+<div class="benefit-card">
+<div class="benefit-icon">&#128268;</div>
+<div class="benefit-num">P&amp;P</div>
+<h4>Plug &amp; Play</h4>
+<p>Delivered ready to connect. No specialist installation. Power your equipment within minutes of delivery.</p>
+</div>
+<div class="benefit-card">
+<div class="benefit-icon">&#9889;</div>
+<div class="benefit-num">500kW</div>
+<h4>Heavy-Load Power</h4>
+<p>Enough output to power tower cranes, hoists, and heavy construction equipment at full capacity.</p>
+</div>
+<div class="benefit-card">
+<div class="benefit-icon">&#128225;</div>
+<div class="benefit-num">24/7</div>
+<h4>Remote Monitoring</h4>
+<p>Real-time intelligent monitoring system with fault prediction and location — accessible from anywhere.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Products Preview -->
+<section>
+<div class="container">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px;flex-wrap:wrap;gap:16px">
+<div>
+<div class="label">Products</div>
+<h2 class="section-title">THE LINEUP</h2>
+</div>
+<button class="btn btn-outline btn-sm" onclick="showPage('products')">View All Products</button>
+</div>
+<div class="grid-3">
+<!-- HT375 -->
+<div class="product-card" onclick="showProductPage('ht375')">
+<div class="prod-img-wrap"><img src="ht375.png" alt="ASENERGY HT375"></div>
+<div class="prod-name">HT375</div>
+<div class="prod-kw">375<span style="font-size:1.2rem">kVA</span></div>
+<p class="prod-desc">The reliable workhorse. 300kW output for single-crane and hoist operations. Only ~2.5m&sup2; footprint, 1,500kg.</p>
+<div class="prod-specs">
+<div class="prod-spec-box"><div class="spec-val">300kW</div><div class="spec-lbl">Output</div></div>
+<div class="prod-spec-box"><div class="spec-val">&lt;45dB</div><div class="spec-lbl">Noise</div></div>
+<div class="prod-spec-box"><div class="spec-val">IP65</div><div class="spec-lbl">Protection</div></div>
+<div class="prod-spec-box"><div class="spec-val">1,500kg</div><div class="spec-lbl">Weight</div></div>
+</div>
+<button class="btn btn-outline btn-sm" style="width:100%">View Details &rarr;</button>
+</div>
+<!-- HT375PRO -->
+<div class="product-card" onclick="showProductPage('ht375pro')" style="background:#0A0A0A;border-color:#2A2A2A;color:#FFF">
+<span class="prod-badge pro">PRO</span>
+<div class="prod-img-wrap" style="background:#1A1A1A"><img src="ht375pro-onsite.png" alt="ASENERGY HT375PRO on site"></div>
+<div class="prod-name" style="color:#2E7D32">HT375PRO</div>
+<div class="prod-kw" style="color:#FFF">375<span style="font-size:1.2rem">kVA</span></div>
+<p class="prod-desc" style="color:#999">Enhanced input capacity up to 80kW for faster charging. 300kW output, advanced IoT monitoring.</p>
+<div class="prod-specs">
+<div class="prod-spec-box" style="background:#1A1A1A;border-color:#2A2A2A"><div class="spec-val" style="color:#FFF">300kW</div><div class="spec-lbl">Output</div></div>
+<div class="prod-spec-box" style="background:#1A1A1A;border-color:#2A2A2A"><div class="spec-val" style="color:#FFF">&lt;45dB</div><div class="spec-lbl">Noise</div></div>
+<div class="prod-spec-box" style="background:#1A1A1A;border-color:#2A2A2A"><div class="spec-val" style="color:#FFF">IP65</div><div class="spec-lbl">Protection</div></div>
+<div class="prod-spec-box" style="background:#1A1A1A;border-color:#2A2A2A"><div class="spec-val" style="color:#FFF">1,800kg</div><div class="spec-lbl">Weight</div></div>
+</div>
+<button class="btn btn-outline-white btn-sm" style="width:100%">View Details &rarr;</button>
+</div>
+<!-- HT500 -->
+<div class="product-card" onclick="showProductPage('ht500')">
+<span class="prod-badge flagship">FLAGSHIP</span>
+<div class="prod-img-wrap"><img src="ht500.png" alt="ASENERGY HT500"></div>
+<div class="prod-name">HT500</div>
+<div class="prod-kw">500<span style="font-size:1.2rem">kVA</span></div>
+<p class="prod-desc">Maximum output. 600kVA peak, 500kWh battery, 6,000+ cycle life. Charge at night, discharge all day.</p>
+<div class="prod-specs">
+<div class="prod-spec-box"><div class="spec-val">500kWh</div><div class="spec-lbl">Battery</div></div>
+<div class="prod-spec-box"><div class="spec-val">500kW</div><div class="spec-lbl">Output</div></div>
+<div class="prod-spec-box"><div class="spec-val">IP55</div><div class="spec-lbl">Protection</div></div>
+<div class="prod-spec-box"><div class="spec-val">9,000kg</div><div class="spec-lbl">Weight</div></div>
+</div>
+<button class="btn btn-outline btn-sm" style="width:100%">View Details &rarr;</button>
+</div>
+</div>
+
+<!-- EP Station Series -->
+<div style="margin-top:48px">
+<div class="label">Portable Power</div>
+<h3 class="section-title" style="font-size:1.8rem">EP STATION SERIES</h3>
+<div class="grid-4" style="margin-top:24px">
+<div class="ep-card yellow">
+<div class="ep-img-wrap"><img src="ep35-yellow.png" alt="ASENERGY EP 3.5"></div>
+<h4>EP 3.5</h4>
+<div class="ep-kw">3.5<span style="font-size:.8rem">kW</span></div>
+<p>Ultra-compact portable battery. 2.6kWh capacity, 9kW peak. For small power tools and lighting.</p>
+<div class="ep-specs-list"><span>2.6kWh &middot; 9kW Peak</span><span>560&times;510&times;420mm</span><span>2hr Charge &middot; IP45</span></div>
+</div>
+<div class="ep-card navy">
+<div class="ep-img-wrap"><img src="ep55-navy.png" alt="ASENERGY EP 5.5"></div>
+<h4>EP 5.5</h4>
+<div class="ep-kw">5.5<span style="font-size:.8rem">kW</span></div>
+<p>Mid-range portable station. 5.6kWh capacity, 15kW peak. For power tools, site comms, mobile equipment.</p>
+<div class="ep-specs-list"><span>5.6kWh &middot; 15kW Peak</span><span>610&times;460&times;610mm</span><span>2hr Charge &middot; IP45</span></div>
+</div>
+<div class="ep-card orange">
+<div class="ep-img-wrap"><img src="ep10-orange.png" alt="ASENERGY EP 10"></div>
+<h4>EP 10</h4>
+<div class="ep-kw">10.2<span style="font-size:.8rem">kW</span></div>
+<p>Heavy-duty portable. 15kWh capacity, 20kW peak. Sustained tool use, lighting rigs, small hoists.</p>
+<div class="ep-specs-list"><span>15kWh &middot; 20kW Peak</span><span>870&times;600&times;400mm</span><span>2hr Charge &middot; IP45</span></div>
+</div>
+<div class="ep-card grey">
+<div class="ep-img-wrap"><img src="ep35-grey.png" alt="ASENERGY EP 35"></div>
+<h4>EP 35</h4>
+<div class="ep-kw">35<span style="font-size:.8rem">kW</span></div>
+<p>Industrial portable station. 28kWh capacity. Full-day site power with multi-outlet distribution.</p>
+<div class="ep-specs-list"><span>28kWh Capacity</span><span>1100&times;820&times;1200mm</span><span>2hr Charge &middot; IP45</span></div>
+</div>
+</div>
+</div>
+
+<!-- EnerCube -->
+<div class="enercube-card">
+<div>
+<div class="label" style="color:#888">Large Scale Storage</div>
+<h3 style="color:#2E7D32;font-size:2.5rem">ENERCUBE 2.0</h3>
+<p style="color:#999;font-size:.9rem;line-height:1.6">All-in-one containerised Battery Energy Storage System. Standard 20HQ container with integrated battery, PCS, PDU, fire suppression, cooling, and intelligent monitoring. Plug-and-play deployment.</p>
+<div class="enercube-features">
+<span>400–800kW</span><span>860–1720kWh</span><span>AC/DC Coupling</span><span>Solar Compatible</span><span>IP55</span><span>5yr Warranty</span>
+</div>
+<button class="btn btn-outline-white btn-sm" style="margin-top:20px" onclick="showPage('products')">Learn More &rarr;</button>
+</div>
+<div class="enercube-right" style="padding:0;overflow:hidden">
+<img src="enercube.png" alt="ASENERGY EnerCube 2.0" class="enercube-img" style="width:100%;height:100%;object-fit:cover;border:none">
+</div>
+</div>
+</div>
+</section>
+
+<!-- Comparison Table -->
+<section class="comparison-section">
+<div class="container">
+<div class="text-center">
+<div class="label" style="justify-content:center;color:#888">The Comparison</div>
+<h2 class="section-title">ASENERGY VS DIESEL</h2>
+</div>
+<table class="comp-table">
+<thead><tr><th>Category</th><th>&#9889; ASENERGY</th><th>&#128738; Diesel Generator</th></tr></thead>
+<tbody>
+<tr><td>Operating Cost/Year</td><td><span class="comp-check">&#10003; 60% Lower</span><span class="cost-tag">Saves $40K+</span></td><td><span class="comp-x">&#10007; $60K+ Fuel &amp; Maintenance</span></td></tr>
+<tr><td>Carbon Emissions</td><td><span class="comp-check">&#10003; Zero Direct Emissions</span></td><td><span class="comp-x">&#10007; High CO2, NOx, Particulates</span></td></tr>
+<tr><td>Noise Level</td><td><span class="comp-check">&#10003; &lt;45dB — Silent</span></td><td><span class="comp-x">&#10007; 85dB+ — Loud</span></td></tr>
+<tr><td>Maintenance</td><td><span class="comp-check">&#10003; Minimal — No Moving Parts</span></td><td><span class="comp-x">&#10007; Frequent Servicing Required</span></td></tr>
+<tr><td>Fuel Supply</td><td><span class="comp-check">&#10003; Grid / Renewable Charging</span></td><td><span class="comp-x">&#10007; Ongoing Diesel Deliveries</span></td></tr>
+<tr><td>Setup Time</td><td><span class="comp-check">&#10003; Minutes — Plug &amp; Play</span></td><td><span class="comp-x">&#10007; Hours — Fuel, Ventilation</span></td></tr>
+<tr><td>Remote Monitoring</td><td><span class="comp-check">&#10003; 24/7 Intelligent Monitoring</span></td><td><span class="comp-x">&#10007; Manual Checks Only</span></td></tr>
+<tr><td>Fire Safety</td><td><span class="comp-check">&#10003; Built-In BMS &amp; Suppression</span></td><td><span class="comp-x">&#10007; High Fire Risk</span></td></tr>
+<tr><td>Weather Resistance</td><td><span class="comp-check">&#10003; IP65 — All Conditions</span></td><td><span class="comp-x">&#10007; Requires Shelter</span></td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<!-- Use Cases Grid -->
+<section class="bg-off">
+<div class="container">
+<div class="label">Applications</div>
+<h2 class="section-title">WHERE IT WORKS</h2>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:32px">
+<div class="usecase-card" onclick="showPage('applications')">
+<div class="usecase-num">01</div>
+<h3>Tower Cranes</h3>
+<p>Peak demand management for tower crane operations. Full shift runtime with zero diesel dependency.</p>
+<span class="model-pill">HT500</span><span class="model-pill">HT375PRO</span>
+</div>
+<div class="usecase-card" onclick="showPage('applications')">
+<div class="usecase-num">02</div>
+<h3>Hoists &amp; Material Lifts</h3>
+<p>Continuous duty cycle power for passenger and material hoists. Reliable, quiet, and always monitored.</p>
+<span class="model-pill">HT375PRO</span><span class="model-pill">HT375</span>
+</div>
+<div class="usecase-card" onclick="showPage('applications')">
+<div class="usecase-num">03</div>
+<h3>Temporary Site Power</h3>
+<p>Fully mobile battery power for any temporary construction or event site. Renewable charging compatible.</p>
+<span class="model-pill">HT375</span><span class="model-pill">EP 35</span>
+</div>
+<div class="usecase-card" onclick="showPage('applications')">
+<div class="usecase-num">04</div>
+<h3>Dual Crane Operations</h3>
+<p>500kW output with smart load balancing for multi-crane sites. One system, two cranes, zero emissions.</p>
+<span class="model-pill">HT500</span>
+</div>
+</div>
+</div>
+</section>
+
+<!-- How It Works -->
+<section>
+<div class="container">
+<div class="text-center">
+<div class="label" style="justify-content:center">How It Works</div>
+<h2 class="section-title">FOUR SIMPLE STEPS</h2>
+</div>
+<div class="steps-grid">
+<div class="step-card">
+<div class="step-num">01</div>
+<div class="step-icon">&#128268;</div>
+<h4>Charge</h4>
+<p>Connect to grid or renewable source. Fast-charge overnight or during off-peak hours.</p>
+<span class="step-arrow">&rarr;</span>
+</div>
+<div class="step-card">
+<div class="step-num">02</div>
+<div class="step-icon">&#128666;</div>
+<h4>Deploy</h4>
+<p>Delivered to site ready to go. Plug &amp; play — no specialist installation required.</p>
+<span class="step-arrow">&rarr;</span>
+</div>
+<div class="step-card">
+<div class="step-num">03</div>
+<div class="step-icon">&#9889;</div>
+<h4>Power</h4>
+<p>Connect your cranes, hoists, and equipment. Full shift runtime with clean, silent power.</p>
+<span class="step-arrow">&rarr;</span>
+</div>
+<div class="step-card">
+<div class="step-num">04</div>
+<div class="step-icon">&#128225;</div>
+<h4>Monitor</h4>
+<p>24/7 intelligent monitoring with fault prediction. Track performance from anywhere.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Trust & Quality -->
+<section class="bg-off">
+<div class="container">
+<div class="text-center">
+<div class="label" style="justify-content:center">Built to Last</div>
+<h2 class="section-title">TRUST &amp; QUALITY</h2>
+</div>
+<div class="grid-3" style="margin-top:32px">
+<div class="trust-card"><div class="trust-icon">&#128179;</div><h4>3-Year Warranty</h4><p>Comprehensive manufacturer warranty with extension options available up to 10 years.</p></div>
+<div class="trust-card"><div class="trust-icon">&#128267;</div><h4>8-10 Year Battery Life</h4><p>LFP chemistry rated for 3,000+ cycles, delivering a decade of reliable service life.</p></div>
+<div class="trust-card"><div class="trust-icon">&#128293;</div><h4>Built-In Fire Safety</h4><p>Advanced BMS with multi-level fire suppression and thermal monitoring as standard.</p></div>
+<div class="trust-card"><div class="trust-icon">&#127783;&#65039;</div><h4>IP65 Protection</h4><p>Fully sealed against dust and water. Built to operate in the harshest conditions year-round.</p></div>
+<div class="trust-card"><div class="trust-icon">&#128225;</div><h4>Remote Monitoring</h4><p>Intelligent monitoring system with fault prediction and location — accessible 24/7 from any device.</p></div>
+<div class="trust-card"><div class="trust-icon">&#9989;</div><h4>Fully Certified</h4><p>Meets all international safety and quality standards for industrial battery energy storage.</p></div>
+</div>
+<div class="cert-pills" style="margin-top:32px">
+<span class="cert-pill">UN38.3</span><span class="cert-pill">IEC 62619</span><span class="cert-pill">CE Mark</span><span class="cert-pill">IP65</span><span class="cert-pill">RoHS</span><span class="cert-pill">ISO 9001</span>
+</div>
+<div class="text-center" style="margin-top:32px">
+<button class="btn btn-green" onclick="showPage('contact')">Get Your ROI Analysis</button>
+</div>
+</div>
+</section>
+
+<!-- CTA Banner -->
+<section class="cta-banner">
+<div class="container">
+<h2>POWER YOUR SITE SMARTER</h2>
+<p>Talk to our team. Get a custom quote for your site and equipment in 24 hours.</p>
+<div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+<button class="btn btn-primary" onclick="showPage('contact')">Request a Quote &rarr;</button>
+<button class="btn btn-outline-white" onclick="showPage('contact')">Request Demo</button>
+</div>
+</div>
+</section>
+</div>
+
+<!-- ==================== PRODUCTS PAGE ==================== -->
+<div class="page" id="page-products">
+
+<!-- Hero -->
+<section class="page-hero">
+<h1>THE ASENERGY LINEUP</h1>
+<p>Industrial battery energy storage systems for every application — from portable power to containerised BESS.</p>
+</section>
+
+<!-- Section 1: HT Series -->
+<section>
+<div class="container">
+<div class="label">Construction Power Units</div>
+<h2 class="section-title">HT SERIES</h2>
+<div class="grid-3" style="margin-top:32px">
+<div class="product-card" onclick="showProductPage('ht375')">
+<div class="prod-img-wrap"><img src="ht375.png" alt="ASENERGY HT375"></div>
+<div class="prod-name">HT375</div>
+<div class="prod-kw">375<span style="font-size:1.2rem">kVA</span></div>
+<p class="prod-desc">The reliable workhorse. 300kW output for single-crane and hoist operations. Only ~2.5m&sup2; footprint, 1,500kg.</p>
+<div class="prod-specs">
+<div class="prod-spec-box"><div class="spec-val">300kW</div><div class="spec-lbl">Output</div></div>
+<div class="prod-spec-box"><div class="spec-val">&lt;45dB</div><div class="spec-lbl">Noise</div></div>
+<div class="prod-spec-box"><div class="spec-val">IP65</div><div class="spec-lbl">Protection</div></div>
+<div class="prod-spec-box"><div class="spec-val">1,500kg</div><div class="spec-lbl">Weight</div></div>
+</div>
+<button class="btn btn-outline btn-sm" style="width:100%">View Details &rarr;</button>
+</div>
+<div class="product-card" onclick="showProductPage('ht375pro')" style="background:#0A0A0A;border-color:#2A2A2A;color:#FFF">
+<span class="prod-badge pro">PRO</span>
+<div class="prod-img-wrap" style="background:#1A1A1A"><img src="ht375pro-onsite.png" alt="ASENERGY HT375PRO on site"></div>
+<div class="prod-name" style="color:#2E7D32">HT375PRO</div>
+<div class="prod-kw" style="color:#FFF">375<span style="font-size:1.2rem">kVA</span></div>
+<p class="prod-desc" style="color:#999">Enhanced input capacity up to 80kW for faster charging. 300kW output, advanced IoT monitoring.</p>
+<div class="prod-specs">
+<div class="prod-spec-box" style="background:#1A1A1A;border-color:#2A2A2A"><div class="spec-val" style="color:#FFF">300kW</div><div class="spec-lbl">Output</div></div>
+<div class="prod-spec-box" style="background:#1A1A1A;border-color:#2A2A2A"><div class="spec-val" style="color:#FFF">&lt;45dB</div><div class="spec-lbl">Noise</div></div>
+<div class="prod-spec-box" style="background:#1A1A1A;border-color:#2A2A2A"><div class="spec-val" style="color:#FFF">IP65</div><div class="spec-lbl">Protection</div></div>
+<div class="prod-spec-box" style="background:#1A1A1A;border-color:#2A2A2A"><div class="spec-val" style="color:#FFF">1,800kg</div><div class="spec-lbl">Weight</div></div>
+</div>
+<button class="btn btn-outline-white btn-sm" style="width:100%">View Details &rarr;</button>
+</div>
+<div class="product-card" onclick="showProductPage('ht500')">
+<span class="prod-badge flagship">FLAGSHIP</span>
+<div class="prod-img-wrap"><img src="ht500.png" alt="ASENERGY HT500"></div>
+<div class="prod-name">HT500</div>
+<div class="prod-kw">500<span style="font-size:1.2rem">kVA</span></div>
+<p class="prod-desc">Maximum output. 600kVA peak, 500kWh battery, 6,000+ cycle life. Charge at night, discharge all day.</p>
+<div class="prod-specs">
+<div class="prod-spec-box"><div class="spec-val">500kWh</div><div class="spec-lbl">Battery</div></div>
+<div class="prod-spec-box"><div class="spec-val">500kW</div><div class="spec-lbl">Output</div></div>
+<div class="prod-spec-box"><div class="spec-val">IP55</div><div class="spec-lbl">Protection</div></div>
+<div class="prod-spec-box"><div class="spec-val">9,000kg</div><div class="spec-lbl">Weight</div></div>
+</div>
+<button class="btn btn-outline btn-sm" style="width:100%">View Details &rarr;</button>
+</div>
+</div>
+
+</div>
+</section>
+
+<!-- Section 2: EP Station Series -->
+<section class="bg-off">
+<div class="container">
+<div class="label">Portable Power</div>
+<h2 class="section-title">EP STATION SERIES</h2>
+<p style="color:#666;max-width:700px;margin-bottom:32px">Ultra-portable battery stations for tools, lighting, and small equipment on site. Clean, quiet, zero emissions.</p>
+<div class="grid-4">
+<div class="ep-card yellow">
+<div class="ep-img-wrap"><img src="ep35-yellow.png" alt="ASENERGY EP 3.5"></div>
+<h4>EP 3.5</h4>
+<div class="ep-kw">3.5<span style="font-size:.8rem">kW</span></div>
+<p>Ultra-compact portable battery. 2.6kWh capacity, 9kW peak. For small power tools and lighting.</p>
+<div class="ep-specs-list">
+<span>Rated: 3.5kW &middot; Peak: 9kW</span><span>Capacity: 2.6kWh</span><span>560&times;510&times;420mm</span><span>Charge: 2hrs &middot; IP45</span><span>92% Inverter Efficiency</span>
+</div>
+</div>
+<div class="ep-card navy">
+<div class="ep-img-wrap"><img src="ep55-navy.png" alt="ASENERGY EP 5.5"></div>
+<h4>EP 5.5</h4>
+<div class="ep-kw">5.5<span style="font-size:.8rem">kW</span></div>
+<p>Mid-range portable station. 5.6kWh capacity, 15kW peak. For power tools, site comms, mobile equipment.</p>
+<div class="ep-specs-list">
+<span>Rated: 5.5kW &middot; Peak: 15kW</span><span>Capacity: 5.6kWh</span><span>610&times;460&times;610mm</span><span>Charge: 2hrs &middot; IP45</span><span>92% Inverter Efficiency</span>
+</div>
+</div>
+<div class="ep-card orange">
+<div class="ep-img-wrap"><img src="ep10-orange.png" alt="ASENERGY EP 10"></div>
+<h4>EP 10</h4>
+<div class="ep-kw">10.2<span style="font-size:.8rem">kW</span></div>
+<p>Heavy-duty portable. 15kWh capacity, 20kW peak. Sustained tool use, lighting rigs, small hoists.</p>
+<div class="ep-specs-list">
+<span>Rated: 10.2kW &middot; Peak: 20kW</span><span>Capacity: 15kWh</span><span>870&times;600&times;400mm</span><span>Charge: 2hrs &middot; IP45</span><span>92% Inverter Efficiency</span>
+</div>
+</div>
+<div class="ep-card grey">
+<div class="ep-img-wrap"><img src="ep35-grey.png" alt="ASENERGY EP 35"></div>
+<h4>EP 35</h4>
+<div class="ep-kw">35<span style="font-size:.8rem">kW</span></div>
+<p>Industrial portable station. 28kWh capacity. Full-day site power with multi-outlet distribution.</p>
+<div class="ep-specs-list">
+<span>Rated: 35kW</span><span>Capacity: 28kWh</span><span>1100&times;820&times;1200mm</span><span>Charge: 2hrs &middot; IP45</span><span>92% Inverter Efficiency</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Section 3: EnerCube 2.0 -->
+<section>
+<div class="container">
+<div class="label">Large Scale Storage</div>
+<h2 class="section-title">ENERCUBE 2.0</h2>
+<div style="margin-top:24px;margin-bottom:32px"><img src="enercube.png" alt="EnerCube 2.0 Containerised BESS" style="width:100%;max-height:350px;object-fit:contain;border-radius:3px;background:#F8F8F8;padding:16px;border:1px solid #E0E0E0"></div>
+<div class="enercube-detail">
+<div>
+<p class="enercube-desc">All-in-One containerised Battery Energy Storage System. Integrates battery PACK, intelligent energy storage converter (PCS), power distribution unit (PDU), automatic fire extinguishing system (FFS), temperature control system (TCS), and intelligent monitoring system (IMS) — all within a standard 20HQ container. Plug-and-play deployment dramatically reduces on-site construction time and costs. Supports AC and DC coupling, compatible with solar, diesel generators, and wind turbines.</p>
+<ul class="enercube-feat-list">
+<li>Modular All-in-One design</li>
+<li>Standard 20HQ container</li>
+<li>Supports AC/DC coupling</li>
+<li>Multiple energy access (solar, wind, diesel)</li>
+<li>7&times;24 hours monitoring</li>
+<li>Online assisted O&amp;M</li>
+<li>Single cluster self-management</li>
+<li>Response &lt;200ms</li>
+<li>Built-in fault prediction and location</li>
+<li>FM200/Novec1230 fire suppression</li>
+</ul>
+</div>
+<div>
+<h4 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:1px;font-size:.9rem;margin-bottom:12px">Available Configurations</h4>
+<table class="config-table">
+<thead><tr><th>Type</th><th>Power</th><th>Capacity</th></tr></thead>
+<tbody>
+<tr><td>P400C860</td><td>400kW</td><td>860kWh</td></tr>
+<tr><td>P500C1075</td><td>500kW</td><td>1075kWh</td></tr>
+<tr><td>P600C1290</td><td>600kW</td><td>1290kWh</td></tr>
+<tr><td>P700C1505</td><td>700kW</td><td>1505kWh</td></tr>
+<tr><td>P800C1720</td><td>800kW</td><td>1720kWh</td></tr>
+</tbody>
+</table>
+<div class="general-specs" style="margin-top:24px">
+<div class="gen-spec"><span class="gs-label">Chemistry</span><span class="gs-val">LiFePO4 280Ah</span></div>
+<div class="gen-spec"><span class="gs-label">Voltage</span><span class="gs-val">AC400V</span></div>
+<div class="gen-spec"><span class="gs-label">Frequency</span><span class="gs-val">50/60Hz</span></div>
+<div class="gen-spec"><span class="gs-label">IP Rating</span><span class="gs-val">IP55/IP34</span></div>
+<div class="gen-spec"><span class="gs-label">Temp Range</span><span class="gs-val">-20°C to +50°C</span></div>
+<div class="gen-spec"><span class="gs-label">Cooling</span><span class="gs-val">HVAC</span></div>
+<div class="gen-spec"><span class="gs-label">Noise</span><span class="gs-val">≤75dB</span></div>
+<div class="gen-spec"><span class="gs-label">Comms</span><span class="gs-val">Ethernet / Modbus TCP/IP</span></div>
+<div class="gen-spec"><span class="gs-label">Warranty</span><span class="gs-val">5yr (ext. to 10yr)</span></div>
+</div>
+<div class="cert-pills" style="margin-top:20px;justify-content:flex-start">
+<span class="cert-pill">UN3536</span><span class="cert-pill">LVD</span><span class="cert-pill">EMC</span><span class="cert-pill">RoHS</span><span class="cert-pill">IEC62619</span><span class="cert-pill">UL1973</span><span class="cert-pill">UL9540A</span><span class="cert-pill">UN38.3</span><span class="cert-pill">G99</span><span class="cert-pill">EN50549</span><span class="cert-pill">AS4777.2</span><span class="cert-pill">VDE4105</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CTA Banner -->
+<section class="cta-banner">
+<div class="container">
+<h2>FIND THE RIGHT SYSTEM</h2>
+<p>Talk to our engineers. We'll spec the right system for your site and equipment.</p>
+<div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+<button class="btn btn-primary" onclick="showPage('contact')">Request a Quote &rarr;</button>
+<button class="btn btn-outline-white" onclick="showPage('contact')">Talk to an Expert</button>
+</div>
+</div>
+</section>
+</div>
+
+<!-- ==================== PRODUCT DETAIL PAGE ==================== -->
+<div class="page" id="page-product-detail">
+
+<!-- Detail Hero -->
+<section class="detail-hero">
+<div class="container">
+<div class="grid-2">
+<div>
+<div class="detail-label" id="detail-label"></div>
+<h1 id="detail-name"></h1>
+<div class="detail-tagline" id="detail-tagline"></div>
+<p class="detail-desc" id="detail-desc"></p>
+<div class="detail-quick-specs" id="detail-quick-specs"></div>
+<div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:20px">
+<button class="btn btn-green" onclick="showPage('contact')">Request a Quote</button>
+<button class="btn btn-outline-white" onclick="showPage('contact')">Talk to an Expert</button>
+</div>
+</div>
+<div>
+<div class="detail-display">
+<img id="detail-img" class="detail-display-img" src="" alt="">
+<h3 id="detail-display-name"></h3>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Features -->
+<section class="bg-off">
+<div class="container">
+<div class="label">Key Features</div>
+<h2 class="section-title">BUILT FOR PERFORMANCE</h2>
+<div class="grid-3" id="detail-features" style="margin-top:32px"></div>
+</div>
+</section>
+
+<!-- Specs Table -->
+<section>
+<div class="container">
+<div class="label">Technical Specifications</div>
+<h2 class="section-title">FULL SPECS</h2>
+<table class="specs-table" style="margin-top:24px">
+<thead><tr><th>Parameter</th><th>Value</th></tr></thead>
+<tbody id="detail-specs"></tbody>
+</table>
+</div>
+</section>
+
+<!-- FAQ -->
+<section class="bg-off">
+<div class="container">
+<div class="label">Frequently Asked</div>
+<h2 class="section-title">FAQ</h2>
+<div id="detail-faqs" style="margin-top:24px"></div>
+</div>
+</section>
+
+<!-- CTA Banner -->
+<section class="cta-banner">
+<div class="container">
+<h2>READY TO SWITCH?</h2>
+<p>Get a custom quote for your site and equipment in 24 hours.</p>
+<div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+<button class="btn btn-primary" onclick="showPage('contact')">Request a Quote &rarr;</button>
+<button class="btn btn-outline-white" onclick="showPage('contact')">Request Demo</button>
+</div>
+</div>
+</section>
+</div>
+
+<!-- ==================== APPLICATIONS PAGE ==================== -->
+<div class="page" id="page-applications">
+
+<section class="page-hero">
+<h1>WHERE ASENERGY WORKS</h1>
+<p>Proven performance across the toughest construction and industrial applications.</p>
+</section>
+
+<!-- App 1: Tower Cranes -->
+<section class="app-section">
+<div class="container">
+<div class="grid-2">
+<div class="app-visual">
+<img src="ht500.png" alt="HT500 powering tower crane" class="app-visual-img">
+<div class="app-sub">Tower Crane Power</div>
+<div class="app-main">PEAK LOAD HANDLED</div>
+</div>
+<div>
+<h3 style="font-size:1.8rem;margin-bottom:12px">Tower Cranes</h3>
+<p style="color:#555;margin-bottom:12px">Tower cranes demand massive peak power on every lift cycle. ASENERGY systems deliver instant, consistent power without the noise, fumes, or fuel costs of diesel generators.</p>
+<p style="color:#555;margin-bottom:20px">Our intelligent monitoring system tracks load patterns and optimises energy delivery in real time — ensuring full shift runtime and predictable performance across every working day.</p>
+<div class="app-features">
+<div class="app-feature-row"><div class="app-feature-dot"></div><div><h5>Peak Demand Management</h5><p>Handles sudden load spikes from crane lift cycles without voltage drop or interruption.</p></div></div>
+<div class="app-feature-row"><div class="app-feature-dot"></div><div><h5>Silent Operation</h5><p>Under 45dB — work in residential areas and noise-sensitive zones without restrictions.</p></div></div>
+<div class="app-feature-row"><div class="app-feature-dot"></div><div><h5>Full Shift Runtime</h5><p>Sized to deliver consistent power across a full 8-hour shift with capacity to spare.</p></div></div>
+</div>
+<div style="margin-top:20px"><button class="btn btn-outline btn-sm" onclick="showProductPage('ht500')">Recommended: HT500 &rarr;</button></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- App 2: Hoists & Material Lifts (Reversed) -->
+<section class="app-section bg-off">
+<div class="container">
+<div class="grid-2">
+<div>
+<h3 style="font-size:1.8rem;margin-bottom:12px">Hoists &amp; Material Lifts</h3>
+<p style="color:#555;margin-bottom:12px">Material and passenger hoists run continuous duty cycles throughout the day — demanding reliable, uninterrupted power from start to finish.</p>
+<p style="color:#555;margin-bottom:20px">ASENERGY systems handle the repetitive load cycling that hoists demand, with built-in overload protection and remote usage tracking to keep operations running smoothly.</p>
+<div class="app-features">
+<div class="app-feature-row"><div class="app-feature-dot"></div><div><h5>Continuous Duty Cycle</h5><p>Engineered for the repetitive start-stop demands of hoist operations all day.</p></div></div>
+<div class="app-feature-row"><div class="app-feature-dot"></div><div><h5>Overload Protection</h5><p>Advanced BMS prevents overloads and protects both the battery and your equipment.</p></div></div>
+<div class="app-feature-row"><div class="app-feature-dot"></div><div><h5>Remote Usage Tracking</h5><p>Monitor power consumption and usage patterns across your fleet from any device.</p></div></div>
+</div>
+<div style="margin-top:20px"><button class="btn btn-outline btn-sm" onclick="showProductPage('ht375pro')">Recommended: HT375PRO &rarr;</button></div>
+</div>
+<div class="app-visual">
+<img src="ht375pro-onsite.png" alt="HT375PRO powering hoists" class="app-visual-img">
+<div class="app-sub">Hoist Power</div>
+<div class="app-main">CONTINUOUS DUTY READY</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- App 3: Temporary Site Power -->
+<section class="app-section">
+<div class="container">
+<div class="grid-2">
+<div class="app-visual">
+<img src="ep10-orange.png" alt="EP Series portable site power" class="app-visual-img" style="object-fit:contain;background:#1A1A1A;padding:16px">
+<div class="app-sub">Site Power</div>
+<div class="app-main">FULLY MOBILE</div>
+</div>
+<div>
+<h3 style="font-size:1.8rem;margin-bottom:12px">Temporary Site Power</h3>
+<p style="color:#555;margin-bottom:12px">Not every site has a grid connection. ASENERGY provides fully mobile, self-contained battery power that deploys in minutes and runs silently for full shifts.</p>
+<p style="color:#555;margin-bottom:20px">Compatible with renewable charging sources, our systems can operate entirely off-grid — making them ideal for remote sites, events, and temporary installations.</p>
+<div class="app-features">
+<div class="app-feature-row"><div class="app-feature-dot"></div><div><h5>Fully Mobile</h5><p>Delivered on a truck, deployed in minutes. No foundation or infrastructure needed.</p></div></div>
+<div class="app-feature-row"><div class="app-feature-dot"></div><div><h5>Renewable Charging Compatible</h5><p>Charge from solar, wind, or grid — and run entirely off-grid if needed.</p></div></div>
+<div class="app-feature-row"><div class="app-feature-dot"></div><div><h5>Multi-Output</h5><p>Power multiple tools, lighting rigs, and equipment from a single unit simultaneously.</p></div></div>
+</div>
+<div style="margin-top:20px;display:flex;gap:8px;flex-wrap:wrap">
+<button class="btn btn-outline btn-sm" onclick="showProductPage('ht375')">HT375 &rarr;</button>
+<button class="btn btn-outline btn-sm" onclick="showPage('products')">EP 35 &rarr;</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- App 4: Dual Crane Operations (Reversed) -->
+<section class="app-section bg-off">
+<div class="container">
+<div class="grid-2">
+<div>
+<h3 style="font-size:1.8rem;margin-bottom:12px">Dual Crane Operations</h3>
+<p style="color:#555;margin-bottom:12px">The largest construction sites run multiple cranes simultaneously — and need a single power system capable of handling combined peak loads without failure.</p>
+<p style="color:#555;margin-bottom:20px">The HT500 delivers 500kW with smart load balancing, distributing power intelligently across two crane connections and providing a unified dashboard for fleet-level monitoring.</p>
+<div class="app-features">
+<div class="app-feature-row"><div class="app-feature-dot"></div><div><h5>500kW Output</h5><p>Maximum power output to handle simultaneous crane operations at full capacity.</p></div></div>
+<div class="app-feature-row"><div class="app-feature-dot"></div><div><h5>Smart Load Balancing</h5><p>Intelligently distributes power between connected equipment based on demand.</p></div></div>
+<div class="app-feature-row"><div class="app-feature-dot"></div><div><h5>Multi-Equipment Dashboard</h5><p>Unified monitoring across all connected cranes and equipment from one interface.</p></div></div>
+</div>
+<div style="margin-top:20px"><button class="btn btn-outline btn-sm" onclick="showProductPage('ht500')">Recommended: HT500 &rarr;</button></div>
+</div>
+<div class="app-visual">
+<img src="ht500.png" alt="HT500 dual crane operations" class="app-visual-img">
+<div class="app-sub">Dual Crane Power</div>
+<div class="app-main">500KW DELIVERED</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- App 5: Large Scale Storage / Microgrid -->
+<section class="app-section">
+<div class="container">
+<div class="grid-2">
+<div class="app-visual">
+<img src="enercube.png" alt="EnerCube 2.0 containerised BESS" class="app-visual-img" style="object-fit:contain;background:#1A1A1A;padding:16px">
+<div class="app-sub">Large Scale Storage</div>
+<div class="app-main">MICROGRID READY</div>
+</div>
+<div>
+<h3 style="font-size:1.8rem;margin-bottom:12px">Large Scale Storage &amp; Mine Microgrids</h3>
+<p style="color:#555;margin-bottom:12px">Remote mining operations, large infrastructure projects, and off-grid sites need resilient, high-capacity power systems that reduce reliance on diesel generators and volatile fuel costs.</p>
+<p style="color:#555;margin-bottom:20px">The EnerCube 2.0 containerised BESS integrates battery storage, power conversion, fire suppression, cooling, and intelligent monitoring in a standard 20HQ container. It supports AC/DC coupling and is compatible with solar, wind, and diesel inputs — enabling low-carbon mine microgrids that reduce operating costs by 30–66% with investment payback in 1–3 years.</p>
+<div class="app-features">
+<div class="app-feature-row"><div class="app-feature-dot"></div><div><h5>Multi-Energy Integration</h5><p>Supports solar, wind, diesel, and grid inputs. Build a complete low-carbon power ecosystem.</p></div></div>
+<div class="app-feature-row"><div class="app-feature-dot"></div><div><h5>400–800kW Scalable Output</h5><p>Configurations from 860kWh to 1,720kWh to match your site's energy demands.</p></div></div>
+<div class="app-feature-row"><div class="app-feature-dot"></div><div><h5>Plug-and-Play Containerised</h5><p>Standard 20HQ container with all systems integrated. Dramatically reduces on-site construction time.</p></div></div>
+</div>
+<div style="margin-top:20px"><button class="btn btn-outline btn-sm" onclick="showPage('products')">Learn More: EnerCube 2.0 &rarr;</button></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CTA Banner -->
+<section class="cta-banner">
+<div class="container">
+<h2>GOT A SPECIFIC USE CASE?</h2>
+<p>Our engineers can spec a system for any application. Tell us what you need.</p>
+<div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+<button class="btn btn-primary" onclick="showPage('contact')">Request a Quote &rarr;</button>
+<button class="btn btn-outline-white" onclick="showPage('contact')">Talk to an Engineer</button>
+</div>
+</div>
+</section>
+</div>
+
+<!-- ==================== ABOUT PAGE ==================== -->
+<div class="page" id="page-about">
+
+<section class="page-hero">
+<h1>BUILT FOR BUILDERS</h1>
+<p>Engineering the end of diesel on construction sites.</p>
+</section>
+
+<!-- Mission -->
+<section>
+<div class="container">
+<div class="grid-2">
+<div>
+<div class="label">Our Mission</div>
+<h2 class="section-title">THE PROBLEM WE'RE SOLVING</h2>
+</div>
+<div>
+<p class="mission-text">Construction sites run on diesel. It's loud, polluting, expensive, and completely unnecessary with modern battery technology. <strong>ASENERGY</strong> builds the systems that replace diesel generators entirely — delivering more power, more reliably, with zero emissions, zero noise, and 60% lower running costs.</p>
+<p class="mission-text" style="margin-top:16px">We're not a tech startup guessing at what construction needs. We're an engineering company that lives and breathes the job site.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Values -->
+<section class="bg-off">
+<div class="container">
+<div class="text-center">
+<div class="label" style="justify-content:center">Our Values</div>
+<h2 class="section-title">WHAT DRIVES US</h2>
+</div>
+<div class="grid-3" style="margin-top:32px">
+<div class="value-card">
+<div class="value-num">01</div>
+<h3>Industrial First</h3>
+<p>Every product is designed for the realities of a construction site — dust, rain, vibration, and heavy loads. No compromises, no consumer-grade shortcuts.</p>
+</div>
+<div class="value-card">
+<div class="value-num">02</div>
+<h3>Engineered to Last</h3>
+<p>LFP chemistry, IP65 protection, and 3,000+ cycle batteries. We build systems that deliver a decade of reliable service, not disposable hardware.</p>
+</div>
+<div class="value-card">
+<div class="value-num">03</div>
+<h3>Honest ROI</h3>
+<p>We show you the real numbers — running costs, payback periods, and total cost of ownership. No inflated claims, just clear data that proves the case.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CTA Banner -->
+<section class="cta-banner">
+<div class="container">
+<h2>JOIN THE SHIFT</h2>
+<p>Ready to eliminate diesel from your sites? Let's talk.</p>
+<div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+<button class="btn btn-primary" onclick="showPage('contact')">Request a Quote &rarr;</button>
+<button class="btn btn-outline-white" onclick="showPage('contact')">Talk to Our Team</button>
+</div>
+</div>
+</section>
+</div>
+
+<!-- ==================== CONTACT PAGE ==================== -->
+<div class="page" id="page-contact">
+
+<section class="page-hero">
+<h1>POWER YOUR SITE</h1>
+<p>Get a custom quote for your site and equipment. We respond within 24 hours.</p>
+</section>
+
+<div class="contact-layout">
+<!-- Left Column -->
+<div class="contact-left">
+<h3 style="font-size:1.5rem;margin-bottom:24px">Why Contact Us?</h3>
+<div class="contact-check"><span class="check">&#10003;</span> Custom system sizing</div>
+<div class="contact-check"><span class="check">&#10003;</span> Free ROI analysis</div>
+<div class="contact-check"><span class="check">&#10003;</span> Technical engineer support</div>
+<div class="contact-check"><span class="check">&#10003;</span> Site demo available</div>
+<div class="contact-check"><span class="check">&#10003;</span> Flexible purchase / lease / rental</div>
+
+<div class="contact-info">
+<div class="contact-info-item"><span class="ci-icon">&#128222;</span> <a href="tel:+61405659080" style="color:#CCC">+61 405 659 080</a></div>
+<div class="contact-info-item" style="font-size:.78rem;color:#666;margin-top:4px">Phone hours: 6:00am – 6:00pm Brisbane Time (AEST)</div>
+<div class="contact-info-item"><span class="ci-icon">&#128279;</span> <a href="https://www.linkedin.com/company/asenergyco" target="_blank" rel="noopener" style="color:#CCC">LinkedIn — ASENERGY</a></div>
+</div>
+
+<div class="response-box">
+<h5>&#9889; Fast Response Guaranteed</h5>
+<p>We respond to all enquiries within 24 hours. Urgent calls answered 6:00am – 6:00pm Brisbane Time.</p>
+</div>
+
+<div class="cert-pills" style="margin-top:24px;justify-content:flex-start">
+<span class="cert-pill">UN38.3</span><span class="cert-pill">IEC 62619</span><span class="cert-pill">CE</span><span class="cert-pill">IP65</span><span class="cert-pill">RoHS</span><span class="cert-pill">ISO 9001</span>
+</div>
+</div>
+
+<!-- Right Column: Form -->
+<div class="contact-right">
+<div id="quoteForm">
+<h3 class="form-title">REQUEST A QUOTE</h3>
+<form onsubmit="submitQuote(event)">
+<div class="form-row">
+<div class="form-group"><label>Full Name *</label><input type="text" name="name" required></div>
+<div class="form-group"><label>Company *</label><input type="text" name="company" required></div>
+</div>
+<div class="form-group"><label>Email *</label><input type="email" name="email" required></div>
+<div class="form-group">
+<label>Project Type</label>
+<select name="project_type">
+<option value="">Select project type...</option>
+<option>Tower Crane Power</option>
+<option>Hoist / Material Lift</option>
+<option>Temporary Site Power</option>
+<option>Dual Crane Operations</option>
+<option>Portable Power (EP Series)</option>
+<option>Large Scale Storage (EnerCube)</option>
+<option>Other</option>
+</select>
+</div>
+<div class="form-group">
+<label>Equipment Used</label>
+<select name="equipment">
+<option value="">Select equipment...</option>
+<option>Tower Crane</option>
+<option>Passenger Hoist</option>
+<option>Material Hoist</option>
+<option>Construction Lift</option>
+<option>Power Tools &amp; Lighting</option>
+<option>Multiple Equipment Types</option>
+<option>Other</option>
+</select>
+</div>
+<div class="form-group">
+<label>Power Requirement</label>
+<select name="power_req">
+<option value="">Select power requirement...</option>
+<option>Up to 10kW (EP Series)</option>
+<option>Up to 35kW (EP 35)</option>
+<option>Up to 375kW (HT375)</option>
+<option>Up to 375kW+ (HT375PRO)</option>
+<option>Up to 500kW (HT500)</option>
+<option>400kW+ (EnerCube)</option>
+<option>Not sure — need advice</option>
+</select>
+</div>
+<div class="form-group"><label>Additional Details</label><textarea name="details" placeholder="Tell us about your project, site requirements, timeline..."></textarea></div>
+<button type="submit" class="btn btn-primary" style="width:100%">Send Quote Request</button>
+</form>
+<div class="form-trust">&#128274; Your information is confidential and used only to prepare your quote.</div>
+</div>
+<div class="form-success" id="formSuccess">
+<h3>QUOTE SENT!</h3>
+<p>Thank you for your enquiry. Our team will review your requirements and contact you within 24 hours.</p>
+<p style="margin-top:12px;font-size:.85rem;color:#888">We'll reach out via the email address you provided.</p>
+</div>
+</div>
+</div>
+
+<!-- Prefer to Call -->
+<section style="padding:40px 0;text-align:center;background:#F8F8F8">
+<div class="container">
+<p style="font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:2px;font-size:1rem;color:#888;margin-bottom:8px">Prefer to Call?</p>
+<a href="tel:+61405659080" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,4vw,3rem);color:#2E7D32">+61 405 659 080</a>
+<p style="font-size:.85rem;color:#888;margin-top:8px">Available 6:00am – 6:00pm Brisbane Time (AEST)</p>
+</div>
+</section>
+
+</div>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+<div class="container">
+<div class="footer-grid">
+<div class="footer-brand">
+<img src="logo.png" alt="ASENERGY">
+<p>Industrial battery energy storage systems for construction sites. Clean, quiet, powerful — built to replace diesel.</p>
+</div>
+<div>
+<h5>Products</h5>
+<ul>
+<li><a onclick="showProductPage('ht375')">HT375</a></li>
+<li><a onclick="showProductPage('ht375pro')">HT375PRO</a></li>
+<li><a onclick="showProductPage('ht500')">HT500</a></li>
+<li><a onclick="showPage('products')">EP Station Series</a></li>
+<li><a onclick="showPage('products')">EnerCube 2.0</a></li>
+</ul>
+</div>
+<div>
+<h5>Company</h5>
+<ul>
+<li><a onclick="showPage('about')">About</a></li>
+<li><a onclick="showPage('applications')">Applications</a></li>
+<li><a onclick="showPage('contact')">Contact</a></li>
+<li><a onclick="showPage('contact')">Get a Quote</a></li>
+</ul>
+</div>
+<div>
+<h5>Certifications</h5>
+<ul>
+<li><a>UN38.3</a></li>
+<li><a>IEC 62619</a></li>
+<li><a>CE Mark</a></li>
+<li><a>IP65 Rated</a></li>
+<li><a>RoHS Compliant</a></li>
+<li><a>ISO 9001</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<span>&copy; 2024 ASENERGY. All rights reserved.</span>
+<span>Diesel-Free Energy for Construction</span>
+<a href="https://www.linkedin.com/company/asenergyco" target="_blank" rel="noopener" style="color:#2E7D32;font-size:.78rem;display:inline-flex;align-items:center;gap:6px">LinkedIn &#8599;</a>
+</div>
+</div>
+</footer>
+
+<script>
+/* ===== PRODUCT DATA ===== */
+var products = {
+ht375: {
+label: 'Standard Power Unit',
+name: 'HT375',
+tagline: 'Compact power for single cranes & hoists',
+desc: 'The dependable workhorse of the ASENERGY range. Built for single-crane and hoist operations, the HT375 delivers consistent, reliable power across full working shifts — cleanly, quietly, and cost-effectively. Only requires 20–40kW input to deliver 300kW output.',
+img: 'ht375.png',
+quickSpecs: [
+{val:'375kVA',lbl:'Max Output'},
+{val:'300kW',lbl:'Recyclability'},
+{val:'<45dB',lbl:'Noise'},
+{val:'IP65',lbl:'Protection'},
+{val:'2-8hrs',lbl:'Backup Time'},
+{val:'1,500kg',lbl:'Weight'}
+],
+features: [
+{title:'375kVA / 300kW Output',desc:'Massive 300kW recyclability from only ~20kW input. Powers tower cranes and hoists across full working shifts.',icon:'&#9889;'},
+{title:'Silent <45dB',desc:'Quieter than a normal conversation. No release of smoke or soot. Work in noise-sensitive areas without restrictions.',icon:'&#128264;'},
+{title:'Plug & Play',desc:'Delivered ready to connect. Occupies only ~2.5m² at 1,500kg. Fits in any space nearby crane and hoist.',icon:'&#128268;'},
+{title:'IP65 All-Weather',desc:'Fully sealed against dust and water. Liquid cooled. Operates from −20°C to +45°C year-round.',icon:'&#127783;&#65039;'},
+{title:'IoT Remote Monitoring',desc:'10" touchscreen and IoT remote monitoring. Track performance and diagnostics from any device.',icon:'&#128225;'},
+{title:'Built-In Fire Safety',desc:'Battery module has built-in fire extinguishing design. Certified to UN38.3, IEC 62619, EN62477, EN61000.',icon:'&#128293;'}
+],
+specs: [
+['Maximum Output Power','375kVA'],['Maximum Recyclability','300kW'],['Maximum Output Current','570A @ 380V / 541A @ 400V / 522A @ 415V'],['Overload Capacity','110% 10min / 120% 1min'],['Maximum Input Power','0–40kW (Adjustable)'],['Input Current Range','0–76A (Adjustable)'],['Input Voltage Range','360–440V 3-Phase + PE (No Neutral)'],['Input Frequency Range','45–65Hz'],['Rated Output Voltage','380/400/415V 3-Phase + Neutral'],['Output Frequency','50/60Hz'],['Surge Protection','Class C'],['Earthing System','TN-S'],['Noise Level','<45dB'],['IP Rating','IP65'],['Operating Temp','−20°C to +45°C'],['Cooling','Liquid Cooled'],['Control Method','10" Touchscreen & IoT Remote Monitoring'],['Dimensions','1650 × 1400 × 1800mm'],['Weight','1,500kg'],['Derating at Altitude','2,000m'],['Certifications','UN38.3 / IEC 62619 / EN62477 / EN61000'],['Warranty','3 Years'],['Battery Life','8–10 Years']
+],
+faqs: [
+{q:'How long does the HT375 battery last?',a:'The HT375 uses LiFePO4 cells rated for 3,000+ charge cycles, delivering an expected service life of 8–10 years under normal operating conditions.'},
+{q:'Is the HT375 safe to use on construction sites?',a:'Yes. The HT375 includes a multi-level Battery Management System (BMS) with built-in fire suppression, thermal monitoring, overcharge/over-discharge protection, and short-circuit protection as standard. It is fully certified to UN38.3, IEC 62619, CE, and RoHS standards.'},
+{q:'What cranes is the HT375 compatible with?',a:'The HT375 is compatible with most standard tower cranes and construction hoists that operate on 400V AC 3-phase power. Our engineering team can confirm compatibility with your specific equipment.'},
+{q:'Can I monitor the HT375 remotely?',a:'Yes. The HT375 includes an intelligent monitoring system accessible via 4G IoT connectivity. You can monitor state of charge, power output, temperature, and receive fault predictions and alerts from any device.'},
+{q:'What happens when the battery runs low?',a:'The BMS provides progressive warnings as the battery level decreases. The system will maintain stable output until a safe minimum threshold, then perform a controlled shutdown to protect the cells and connected equipment.'}
+]
+},
+ht375pro: {
+label: 'Advanced Power Unit',
+name: 'HT375PRO',
+tagline: 'Enhanced intelligence for demanding construction sites',
+desc: 'The HT375PRO delivers greater capacity and accepts higher input power — built for sites that demand maximum performance and minimum downtime. Accepts up to 80kW input for faster charging.',
+img: 'ht375pro-onsite.png',
+quickSpecs: [
+{val:'375kVA',lbl:'Max Output'},
+{val:'300kW',lbl:'Recyclability'},
+{val:'<45dB',lbl:'Noise'},
+{val:'IP65',lbl:'Protection'},
+{val:'2-8hrs',lbl:'Backup Time'},
+{val:'1,800kg',lbl:'Weight'}
+],
+features: [
+{title:'Enhanced Output 375kW+',desc:'Greater sustained power output for more demanding applications and longer operational periods.',icon:'&#9889;'},
+{title:'Ultra-Quiet <42dB',desc:'Even quieter than the standard HT375 — ideal for inner-city sites and noise-restricted zones.',icon:'&#128264;'},
+{title:'Fast Charge 4-6hrs',desc:'Reduced charge time means faster turnaround and less downtime between shifts.',icon:'&#128267;'},
+{title:'Advanced Intelligent Monitoring',desc:'IMS with fault prediction and location — identify issues before they cause downtime.',icon:'&#128225;'},
+{title:'IP65 Industrial Hardened',desc:'Enhanced environmental protection for the most demanding construction site conditions.',icon:'&#127783;&#65039;'},
+{title:'Built-In Fire Safety',desc:'Advanced BMS with multi-level fire suppression, thermal runaway prevention, and real-time monitoring.',icon:'&#128293;'}
+],
+specs: [
+['Maximum Output Power','375kVA'],['Maximum Recyclability','300kW'],['Maximum Output Current','570A @ 380V / 541A @ 400V / 522A @ 415V'],['Overload Capacity','110% 10min / 120% 1min'],['Maximum Input Power','0–80kW (Adjustable)'],['Input Current Range','0–152A (Adjustable)'],['Input Voltage Range','360–440V 3-Phase + PE (No Neutral)'],['Input Frequency Range','45–65Hz'],['Rated Output Voltage','380/400/415V 3-Phase + Neutral'],['Output Frequency','50/60Hz'],['Surge Protection','Class C'],['Earthing System','TN-S'],['Noise Level','<45dB'],['IP Rating','IP65'],['Operating Temp','−20°C to +45°C'],['Cooling','Liquid Cooled'],['Control Method','10" Touchscreen & IoT Remote Monitoring'],['Dimensions','1850 × 1400 × 2000mm'],['Weight','1,800kg'],['Derating at Altitude','2,000m'],['Certifications','UN38.3 / IEC 62619 / EN62477 / EN61000'],['Warranty','3 Years'],['Battery Life','8–10 Years']
+],
+faqs: [
+{q:'What makes the PRO different from the standard HT375?',a:'The HT375PRO accepts up to 80kW input power (vs 40kW on the standard HT375), enabling faster charging. It also has a larger form factor (1850×1400×2000mm vs 1650×1400×1800mm) at 1,800kg vs 1,500kg. Both deliver the same 375kVA / 300kW output with IP65 protection.'},
+{q:'How long does the PRO battery last?',a:'The HT375PRO uses enhanced LiFePO4 cells rated for 3,500+ cycles, delivering an expected service life of 8–10 years under normal operating conditions — with greater resilience than the standard model.'},
+{q:'Can the HT375PRO power two pieces of equipment simultaneously?',a:'The HT375PRO is optimised for demanding single-equipment applications. For dual crane operations, we recommend the HT500 which is specifically engineered for multi-equipment sites.'},
+{q:'What does the intelligent monitoring system do?',a:'The IMS provides real-time monitoring of all system parameters including state of charge, temperature, power output, and cell health. It includes predictive fault detection and location capabilities, alerting you to potential issues before they cause downtime.'},
+{q:'Can the HT375PRO be charged from renewable sources?',a:'Yes. The HT375PRO is compatible with solar and wind charging systems, as well as standard grid power. It supports flexible charging configurations to suit your site setup.'}
+]
+},
+ht500: {
+label: 'Maximum Power Unit — Flagship',
+name: 'HT500',
+tagline: 'Maximum output for the largest construction sites',
+desc: "The HT500 is ASENERGY's most powerful system. 500kVA rated output with 600kVA peak, 500kWh battery capacity with 6,000+ cycle life. Suitable for charging at night and discharging during the day, or continuous charge-discharge operation.",
+img: 'ht500.png',
+quickSpecs: [
+{val:'600kVA',lbl:'Peak Output'},
+{val:'500kWh',lbl:'Battery'},
+{val:'500kW',lbl:'Recyclability'},
+{val:'IP55',lbl:'Protection'},
+{val:'6,000+',lbl:'Cycles'},
+{val:'9,000kg',lbl:'Weight'}
+],
+features: [
+{title:'600kVA Peak Output',desc:'500kVA rated, 600kVA peak (1 minute). The highest power output in the ASENERGY range.',icon:'&#9889;'},
+{title:'500kWh Battery Capacity',desc:'Massive 500kWh battery with 6,000+ cycle life. Charge at night and discharge during the day.',icon:'&#128267;'},
+{title:'500kW Recyclability',desc:'Continuous 500kW regenerative power handling for heavy crane and hoist operations.',icon:'&#127959;&#65039;'},
+{title:'-20°C to +45°C Operating',desc:'Liquid cooled system operates reliably in extreme cold and heat conditions.',icon:'&#127777;&#65039;'},
+{title:'Built-In Fire Safety',desc:'Built-in fire extinguishing design ensures the system will not explode or catch fire.',icon:'&#128293;'},
+{title:'4G Remote Monitoring',desc:'IoT remote monitoring via 4G connectivity. Track performance from anywhere.',icon:'&#128225;'}
+],
+specs: [
+['Maximum Output Power (Peak, 1min)','600kVA'],['Rated Output Power','500kVA'],['Maximum Recyclability','500kW'],['Maximum Output Current (Peak, 1min)','866A @ 400V'],['Maximum Input Power (3-Phase)','0–80kW (Adjustable)'],['Input Current Range (3-Phase)','0–152A (Adjustable)'],['Input Voltage Range','360–440V 3-Phase + PE (No Neutral)'],['Input Frequency Range','45–65Hz'],['Rated Output Voltage','400V 3-Phase + Neutral'],['Output Frequency','50/60Hz'],['Surge Protection','Class C'],['Earthing System','TN-S'],['Battery Capacity','500kWh'],['Battery Life','≥6,000 Cycles'],['IP Rating','IP55'],['Operating Temp','−20°C to +45°C'],['Cooling','Liquid Cooled'],['Remote Monitoring','4G'],['Dimensions','2900 × 2300 × 2400mm'],['Weight','9,000kg'],['Derating at Altitude','2,000m'],['Certifications','UN38.3 / IEC 62619 / EN62477 / EN61000'],['Warranty','3 Years']
+],
+faqs: [
+{q:'What is the HT500 battery capacity and cycle life?',a:'The HT500 has a 500kWh battery capacity rated for 6,000+ cycles, delivering many years of reliable service life. We provide a 3-year warranty free of charge.'},
+{q:'Can the HT500 charge at night and discharge during the day?',a:'Yes. The HT500 supports two operating scenarios: charging at night and discharging during the day, or continuous charging and discharging. It accepts up to 80kW input power for flexible charging.'},
+{q:'What is the maximum output of the HT500?',a:'The HT500 delivers 500kVA rated output, with a peak of 600kVA for 1 minute. Maximum output current is 866A at 400V. Maximum recyclability is 500kW continuously.'},
+{q:'What fire safety features does the HT500 include?',a:'The battery module has a built-in fire extinguishing design to ensure it will not explode or catch fire in extremely rare cases. The system is certified to UN38.3, IEC 62619, EN62477, and EN61000 standards.'},
+{q:'Can the HT500 be remotely monitored?',a:'Yes. The HT500 includes 4G remote monitoring for real-time tracking of system performance, state of charge, and diagnostics from any location.'}
+]
+}
+};
+
+/* ===== PAGE NAVIGATION ===== */
+function showPage(page) {
+document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active')});
+document.getElementById('page-' + page).classList.add('active');
+document.querySelectorAll('.nav-links a').forEach(function(a){a.classList.remove('active')});
+var link = document.querySelector('.nav-links a[data-page="'+page+'"]');
+if(link) link.classList.add('active');
+window.scrollTo(0,0);
+closeMobile();
+if(page === 'home') runCounters();
+}
+
+function showProductPage(model) {
+var p = products[model];
+if(!p) return;
+document.getElementById('detail-label').textContent = p.label;
+document.getElementById('detail-name').innerHTML = p.name;
+document.getElementById('detail-tagline').textContent = p.tagline;
+document.getElementById('detail-desc').textContent = p.desc;
+document.getElementById('detail-img').src = p.img;
+document.getElementById('detail-img').alt = 'ASENERGY ' + p.name;
+document.getElementById('detail-display-name').textContent = p.name;
+
+var qsHtml = '';
+p.quickSpecs.forEach(function(s){
+qsHtml += '<div class="detail-qs"><div class="qs-val">'+s.val+'</div><div class="qs-lbl">'+s.lbl+'</div></div>';
+});
+document.getElementById('detail-quick-specs').innerHTML = qsHtml;
+
+var fHtml = '';
+p.features.forEach(function(f){
+fHtml += '<div class="benefit-card"><div class="benefit-icon">'+f.icon+'</div><h4>'+f.title+'</h4><p>'+f.desc+'</p></div>';
+});
+document.getElementById('detail-features').innerHTML = fHtml;
+
+var sHtml = '';
+p.specs.forEach(function(s){
+sHtml += '<tr><td>'+s[0]+'</td><td>'+s[1]+'</td></tr>';
+});
+document.getElementById('detail-specs').innerHTML = sHtml;
+
+var faqHtml = '';
+p.faqs.forEach(function(f,i){
+faqHtml += '<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>'+f.q+'</span><span class="arrow">&#9660;</span></div><div class="faq-a">'+f.a+'</div></div>';
+});
+document.getElementById('detail-faqs').innerHTML = faqHtml;
+
+showPage('product-detail');
+}
+
+/* ===== MOBILE MENU ===== */
+function toggleMobile() {
+document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMobile() {
+document.getElementById('mobileMenu').classList.remove('open');
+}
+
+/* ===== FAQ TOGGLE ===== */
+function toggleFaq(el) {
+el.parentElement.classList.toggle('open');
+}
+
+/* ===== COUNTER ANIMATION ===== */
+function runCounters() {
+document.querySelectorAll('.hero-stat .num').forEach(function(el){
+var target = parseInt(el.getAttribute('data-count'));
+var prefix = el.getAttribute('data-prefix') || '';
+var suffix = el.getAttribute('data-suffix') || '';
+var current = 0;
+var step = Math.max(1, Math.floor(target / 40));
+var interval = setInterval(function(){
+current += step;
+if(current >= target){
+current = target;
+clearInterval(interval);
+}
+el.textContent = prefix + current + suffix;
+}, 30);
+});
+}
+
+/* ===== FORM SUBMISSION ===== */
+function submitQuote(e) {
+e.preventDefault();
+var form = e.target;
+var submitBtn = form.querySelector('button[type="submit"]');
+submitBtn.disabled = true;
+submitBtn.textContent = 'Sending...';
+
+var data = {
+name: form.name.value,
+company: form.company.value,
+email: form.email.value,
+services: [
+form.project_type.value,
+form.equipment.value,
+form.power_req.value
+].filter(Boolean).join(' | ') || 'Not specified',
+problems: form.details.value || 'None provided'
+};
+
+fetch('https://formspree.io/f/xwvwyrly', {
+method: 'POST',
+headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+body: JSON.stringify(data)
+}).then(function(res) {
+if (res.ok) {
+document.getElementById('quoteForm').style.display = 'none';
+document.getElementById('formSuccess').style.display = 'block';
+} else {
+submitBtn.disabled = false;
+submitBtn.textContent = 'Send Quote Request';
+alert('Something went wrong. Please try again.');
+}
+}).catch(function() {
+submitBtn.disabled = false;
+submitBtn.textContent = 'Send Quote Request';
+alert('Network error. Please check your connection and try again.');
+});
+}
+
+/* ===== INIT ===== */
+document.addEventListener('DOMContentLoaded', function(){
+runCounters();
+});
+</script>
+</body>
+</html>
