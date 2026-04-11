@@ -1246,7 +1246,10 @@ section{padding:80px 0}
 <div class="form-group"><label>Full Name *</label><input type="text" name="name" required></div>
 <div class="form-group"><label>Company *</label><input type="text" name="company" required></div>
 </div>
+<div class="form-row">
 <div class="form-group"><label>Email *</label><input type="email" name="email" required></div>
+<div class="form-group"><label>Phone Number *</label><input type="tel" name="phone" required placeholder="+61 400 000 000"></div>
+</div>
 <div class="form-group">
 <label>Project Type</label>
 <select name="project_type">
@@ -1555,6 +1558,7 @@ var data = {
 name: form.name.value,
 company: form.company.value,
 email: form.email.value,
+phone: form.phone.value,
 services: [
 form.project_type.value,
 form.equipment.value,
