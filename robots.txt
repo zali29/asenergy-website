@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://asenergy.com.au/sitemap.xml
