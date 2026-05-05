@@ -3,8 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" href="favicon.ico" type="image/x-icon">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="favicon.ico?v=2" type="image/x-icon">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=2">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=2">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=2">
 <link rel="canonical" href="https://asenergy.com.au/">
 
 <title>ASENERGY — Portable Battery Energy Storage Solutions Australia | BESS Hire & Sales</title>
@@ -541,6 +543,95 @@ section{padding:80px 0}
 .prod-kw{font-size:2.5rem}
 .section-title{font-size:1.8rem}
 }
+
+/* ===== SCROLL REVEAL ===== */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-40px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(40px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+.reveal-right.visible{opacity:1;transform:translateX(0)}
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}
+.reveal-delay-4{transition-delay:.4s}
+
+/* ===== IMPROVED CARD HOVER ===== */
+.benefit-card,.product-card,.ep-card,.trust-card,.value-card,.usecase-card,.step-card{transition:all .3s cubic-bezier(.22,1,.36,1)}
+.benefit-card:hover,.trust-card:hover,.value-card:hover,.step-card:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(0,0,0,.12)}
+.product-card:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(0,0,0,.15)}
+.usecase-card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,.1)}
+
+/* ===== NAV PHONE ===== */
+.nav-phone{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.9rem;color:#2E7D32;letter-spacing:1px;display:flex;align-items:center;gap:6px}
+.nav-phone:hover{color:#1B5E20}
+.nav-phone svg{width:14px;height:14px;fill:#2E7D32}
+
+/* ===== CASE STUDIES ===== */
+.case-study-card{background:#FFF;border:1px solid #E0E0E0;border-radius:3px;overflow:hidden;transition:all .3s cubic-bezier(.22,1,.36,1)}
+.case-study-card:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(0,0,0,.12)}
+.case-study-img{width:100%;height:240px;object-fit:cover}
+.case-study-body{padding:28px}
+.case-study-tag{display:inline-block;background:rgba(46,125,50,.1);color:#2E7D32;border:1px solid rgba(46,125,50,.3);padding:4px 12px;border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:2px;font-size:.68rem;margin-bottom:12px}
+.case-study-body h3{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;margin-bottom:8px;line-height:1.1}
+.case-study-body p{font-size:.88rem;color:#666;line-height:1.6;margin-bottom:16px}
+.case-study-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px;padding-top:16px;border-top:1px solid #E0E0E0}
+.cs-stat .cs-val{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:#2E7D32;line-height:1}
+.cs-stat .cs-lbl{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;text-transform:uppercase;letter-spacing:1px;color:#888}
+
+/* ===== INDUSTRY CARDS ===== */
+.industry-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:32px}
+.industry-card{background:#FFF;border:1px solid #E0E0E0;border-radius:3px;padding:28px;transition:all .3s cubic-bezier(.22,1,.36,1);cursor:pointer}
+.industry-card:hover{background:#0A0A0A;border-color:#2A2A2A;transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,.15)}
+.industry-card:hover h4,.industry-card:hover .industry-icon{color:#2E7D32}
+.industry-card:hover p{color:#999}
+.industry-card:hover .industry-tags span{background:#1A1A1A;border-color:#2A2A2A;color:#888}
+.industry-icon{font-size:2rem;margin-bottom:12px;transition:color .3s}
+.industry-card h4{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:1px;font-size:1rem;margin-bottom:8px;transition:color .3s}
+.industry-card p{font-size:.83rem;color:#666;line-height:1.5;margin-bottom:12px;transition:color .3s}
+.industry-tags{display:flex;flex-wrap:wrap;gap:6px}
+.industry-tags span{background:#F8F8F8;border:1px solid #E0E0E0;padding:3px 10px;border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-size:.68rem;text-transform:uppercase;letter-spacing:1px;color:#888;transition:all .3s}
+
+/* ===== TESTIMONIAL / QUOTE PULL ===== */
+.pull-quote{background:#0A0A0A;color:#FFF;padding:60px 0;text-align:center}
+.pull-quote blockquote{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,3.5vw,2.8rem);color:#FFF;max-width:900px;margin:0 auto;line-height:1.2}
+.pull-quote blockquote span{color:#2E7D32}
+.pull-quote cite{display:block;margin-top:16px;font-family:'Barlow Condensed',sans-serif;font-size:.85rem;text-transform:uppercase;letter-spacing:2px;color:#666}
+
+/* ===== DIESEL COMPARISON UPGRADE ===== */
+.diesel-hero{background:linear-gradient(135deg,#0A0A0A 60%,#1A1A1A);color:#FFF;padding:80px 0}
+.diesel-vs{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-top:40px;align-items:stretch}
+.diesel-col{border-radius:3px;overflow:hidden}
+.diesel-col-header{padding:24px 28px;text-align:center}
+.diesel-col-header h3{font-family:'Bebas Neue',sans-serif;font-size:1.8rem}
+.diesel-col-body{padding:0 28px 28px}
+.diesel-item{display:flex;align-items:flex-start;gap:12px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.diesel-item:last-child{border:none}
+.diesel-item .di-icon{font-size:1.1rem;margin-top:2px;flex-shrink:0}
+.diesel-item .di-text h5{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:1px;font-size:.82rem;margin-bottom:2px}
+.diesel-item .di-text p{font-size:.78rem;color:#888;line-height:1.4}
+.diesel-vs-divider{display:flex;align-items:center;justify-content:center;padding:0 20px}
+.vs-circle{width:60px;height:60px;border-radius:50%;background:#2E7D32;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:#FFF;flex-shrink:0}
+.bess-col{background:#111;border:1px solid rgba(46,125,50,.3)}
+.bess-col .diesel-col-header{background:rgba(46,125,50,.1);border-bottom:1px solid rgba(46,125,50,.2)}
+.bess-col .diesel-col-header h3{color:#2E7D32}
+.diesel-col-diesel{background:#111;border:1px solid #1A1A1A}
+.diesel-col-diesel .diesel-col-header{background:#0A0A0A;border-bottom:1px solid #1A1A1A}
+.diesel-col-diesel .diesel-col-header h3{color:#666}
+.diesel-check{color:#2E7D32}
+.diesel-x{color:#333}
+
+/* ===== STAT BAR ===== */
+.stat-bar-section{padding:60px 0;background:#F8F8F8}
+.stat-bar-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px}
+.stat-bar-item{text-align:center}
+.stat-bar-num{font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:#2E7D32;line-height:1}
+.stat-bar-label{font-family:'Barlow Condensed',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:2px;font-size:.78rem;color:#888;margin-top:4px}
+.stat-bar-sub{font-size:.78rem;color:#AAA;margin-top:2px}
+
+/* ===== RESPONSIVE ADDITIONS ===== */
+@media(max-width:1024px){.industry-grid{grid-template-columns:1fr 1fr}.stat-bar-grid{grid-template-columns:1fr 1fr}.diesel-vs{grid-template-columns:1fr;gap:16px}.diesel-vs-divider{padding:12px 0}.vs-circle{width:48px;height:48px}}
+@media(max-width:768px){.industry-grid{grid-template-columns:1fr}.stat-bar-grid{grid-template-columns:1fr 1fr}.case-study-stats{grid-template-columns:repeat(3,1fr)}}
 </style>
 </head>
 <body>
@@ -556,7 +647,13 @@ section{padding:80px 0}
 <a onclick="showPage('about')" data-page="about">About</a>
 <a onclick="showPage('contact')" data-page="contact">Contact</a>
 </div>
+<div style="display:flex;align-items:center;gap:20px">
+<a href="tel:+61405659080" class="nav-phone" style="text-decoration:none">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
++61 405 659 080
+</a>
 <div class="nav-cta"><button class="btn btn-primary btn-sm" onclick="showPage('contact')">Get a Quote</button></div>
+</div>
 <div class="hamburger" onclick="toggleMobile()"><span></span><span></span><span></span></div>
 </div>
 </nav>
@@ -611,7 +708,7 @@ section{padding:80px 0}
 <div class="label">Built for the Job Site</div>
 <h2 class="section-title">WHY ASENERGY</h2>
 <div class="grid-3" style="margin-top:32px">
-<div class="benefit-card">
+<div class="benefit-card reveal reveal-delay-1">
 <div class="benefit-icon">&#128176;</div>
 <div class="benefit-num">60%</div>
 <h4>Lower Costs</h4>
@@ -650,6 +747,34 @@ section{padding:80px 0}
 </div>
 </div>
 </section>
+
+<!-- Stat Bar -->
+<div class="stat-bar-section">
+<div class="container">
+<div class="stat-bar-grid">
+<div class="stat-bar-item reveal reveal-delay-1">
+<div class="stat-bar-num">60%</div>
+<div class="stat-bar-label">Cost Reduction</div>
+<div class="stat-bar-sub">vs diesel generators</div>
+</div>
+<div class="stat-bar-item reveal reveal-delay-2">
+<div class="stat-bar-num">80%</div>
+<div class="stat-bar-label">Emissions Reduced</div>
+<div class="stat-bar-sub">zero direct emissions</div>
+</div>
+<div class="stat-bar-item reveal reveal-delay-3">
+<div class="stat-bar-num">&lt;45dB</div>
+<div class="stat-bar-label">Noise Output</div>
+<div class="stat-bar-sub">quieter than conversation</div>
+</div>
+<div class="stat-bar-item reveal reveal-delay-4">
+<div class="stat-bar-num">10yr</div>
+<div class="stat-bar-label">Battery Life</div>
+<div class="stat-bar-sub">3,000+ cycles LFP</div>
+</div>
+</div>
+</div>
+</div>
 
 <!-- Products Preview -->
 <section>
@@ -819,6 +944,60 @@ section{padding:80px 0}
 </div>
 </div>
 </section>
+
+<!-- Case Studies -->
+<section>
+<div class="container">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px;flex-wrap:wrap;gap:16px">
+<div>
+<div class="label reveal">Proven On Site</div>
+<h2 class="section-title reveal reveal-delay-1">PROJECT CASE STUDIES</h2>
+</div>
+</div>
+<div class="grid-2" style="gap:28px">
+<div class="case-study-card reveal reveal-delay-1">
+<img src="ht-onsite.png" alt="ASENERGY HT375 Cypress Palms Meriton Gold Coast" class="case-study-img">
+<div class="case-study-body">
+<span class="case-study-tag">&#127959; Gold Coast, Australia</span>
+<h3>MERITON CYPRESS PALMS</h3>
+<p>Powering the tower crane and construction hoists at one of the Gold Coast's most prestigious residential developments. ASENERGY replaced the diesel generator entirely — delivering clean, silent power across full working shifts with zero fuel costs and zero noise complaints.</p>
+<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px">
+<span class="model-pill">HT375</span><span class="model-pill">Tower Crane</span><span class="model-pill">Hoists</span>
+</div>
+<div class="case-study-stats">
+<div class="cs-stat"><div class="cs-val">60%</div><div class="cs-lbl">Cost Reduction</div></div>
+<div class="cs-stat"><div class="cs-val">0</div><div class="cs-lbl">Diesel Used</div></div>
+<div class="cs-stat"><div class="cs-val">&lt;45dB</div><div class="cs-lbl">Noise Output</div></div>
+</div>
+</div>
+</div>
+<div class="case-study-card reveal reveal-delay-2">
+<img src="ht375pro-onsite.png" alt="ASENERGY HT375PRO Iconica Meriton Gold Coast" class="case-study-img">
+<div class="case-study-body">
+<span class="case-study-tag">&#127959; Gold Coast, Australia</span>
+<h3>MERITON ICONICA</h3>
+<p>Deployed on the Iconica tower development on the Gold Coast, the HT375PRO powers the site's tower crane with enhanced 80kW input capacity for faster overnight recharging. Operating silently in a residential corridor, it eliminated all diesel-related compliance issues from day one.</p>
+<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px">
+<span class="model-pill">HT375PRO</span><span class="model-pill">Tower Crane</span><span class="model-pill">High-Rise</span>
+</div>
+<div class="case-study-stats">
+<div class="cs-stat"><div class="cs-val">80kW</div><div class="cs-lbl">Fast Charge</div></div>
+<div class="cs-stat"><div class="cs-val">0</div><div class="cs-lbl">Complaints</div></div>
+<div class="cs-stat"><div class="cs-val">24/7</div><div class="cs-lbl">Monitoring</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Pull Quote -->
+<div class="pull-quote">
+<div class="container">
+<blockquote class="reveal">"The future of construction power is <span>clean, silent and battery-driven</span>. Diesel is a problem we've already solved."</blockquote>
+<cite class="reveal reveal-delay-1">ASENERGY — Proven on Australian construction sites</cite>
+</div>
+</div>
 
 <!-- How It Works -->
 <section>
@@ -1272,6 +1451,55 @@ section{padding:80px 0}
 </div>
 </section>
 
+<!-- Industries Section -->
+<section style="padding:80px 0;background:#F8F8F8">
+<div class="container">
+<div class="text-center reveal">
+<div class="label" style="justify-content:center">All Industries</div>
+<h2 class="section-title">WHERE WE OPERATE</h2>
+<p style="color:#666;max-width:600px;margin:0 auto 40px">From inner-city construction to remote mining, ASENERGY systems are proven across every demanding industry.</p>
+</div>
+<div class="industry-grid">
+<div class="industry-card reveal reveal-delay-1">
+<div class="industry-icon">&#127959;</div>
+<h4>Construction &amp; Civil</h4>
+<p>Tower cranes, hoists, site offices, and tools. Complete site power without diesel or grid dependency.</p>
+<div class="industry-tags"><span>Tower Cranes</span><span>Hoists</span><span>Site Offices</span><span>Tools</span></div>
+</div>
+<div class="industry-card reveal reveal-delay-2">
+<div class="industry-icon">&#9935;</div>
+<h4>Mining &amp; Resources</h4>
+<p>Remote mine microgrids and equipment charging. Reduce diesel costs by up to 66% with solar integration.</p>
+<div class="industry-tags"><span>Microgrids</span><span>Remote Sites</span><span>Solar Hybrid</span></div>
+</div>
+<div class="industry-card reveal reveal-delay-3">
+<div class="industry-icon">&#127881;</div>
+<h4>Events &amp; Entertainment</h4>
+<p>Silent, emission-free power for outdoor events, festivals, and productions in noise-sensitive locations.</p>
+<div class="industry-tags"><span>Festivals</span><span>Film Sets</span><span>Outdoor Events</span></div>
+</div>
+<div class="industry-card reveal reveal-delay-1">
+<div class="industry-icon">&#128666;</div>
+<h4>Equipment Hire</h4>
+<p>Battery power stations for hire fleets. Higher margins, no fuel, and growing demand from tier-1 clients.</p>
+<div class="industry-tags"><span>Hire Fleets</span><span>Rental</span><span>Mobile Power</span></div>
+</div>
+<div class="industry-card reveal reveal-delay-2">
+<div class="industry-icon">&#128268;</div>
+<h4>Infrastructure &amp; Utilities</h4>
+<p>Grid support, peak shaving, and backup power for critical infrastructure and utility operations.</p>
+<div class="industry-tags"><span>Grid Support</span><span>Peak Shaving</span><span>Backup Power</span></div>
+</div>
+<div class="industry-card reveal reveal-delay-3">
+<div class="industry-icon">&#127981;</div>
+<h4>Manufacturing</h4>
+<p>High-peak power management for machinery upgrades, expansions, and temporary power needs.</p>
+<div class="industry-tags"><span>Peak Management</span><span>Machinery</span><span>Expansion</span></div>
+</div>
+</div>
+</div>
+</section>
+
 <!-- CTA Banner -->
 <section class="cta-banner">
 <div class="container">
@@ -1331,6 +1559,35 @@ section{padding:80px 0}
 <div class="value-num">03</div>
 <h3>Honest ROI</h3>
 <p>We show you the real numbers — running costs, payback periods, and total cost of ownership. No inflated claims, just clear data that proves the case.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Projects -->
+<section>
+<div class="container">
+<div class="label reveal">Proven Track Record</div>
+<h2 class="section-title reveal reveal-delay-1">LIVE ON SITE</h2>
+<p style="color:#555;max-width:700px;margin-bottom:32px" class="reveal reveal-delay-2">Our systems are not prototypes. They are deployed, running, and delivering results on real construction sites across Australia and internationally.</p>
+<div class="grid-2" style="gap:28px">
+<div class="case-study-card reveal reveal-delay-1">
+<img src="ht-onsite.png" alt="Cypress Palms Meriton Gold Coast" class="case-study-img">
+<div class="case-study-body">
+<span class="case-study-tag">Gold Coast, Australia</span>
+<h3>MERITON CYPRESS PALMS</h3>
+<p>HT375 replacing diesel generator on tower crane and hoists. Full shift runtime, zero fuel, zero noise complaints.</p>
+<div style="display:flex;flex-wrap:wrap;gap:6px"><span class="model-pill">HT375</span><span class="model-pill">Tower Crane</span><span class="model-pill">Hoists</span></div>
+</div>
+</div>
+<div class="case-study-card reveal reveal-delay-2">
+<img src="ht375pro-onsite.png" alt="Iconica Meriton Gold Coast" class="case-study-img">
+<div class="case-study-body">
+<span class="case-study-tag">Gold Coast, Australia</span>
+<h3>MERITON ICONICA</h3>
+<p>HT375PRO powering tower crane at Iconica high-rise development. Silent operation in residential corridor with 80kW fast charge capability.</p>
+<div style="display:flex;flex-wrap:wrap;gap:6px"><span class="model-pill">HT375PRO</span><span class="model-pill">Tower Crane</span><span class="model-pill">High-Rise</span></div>
+</div>
 </div>
 </div>
 </div>
@@ -1466,6 +1723,8 @@ section{padding:80px 0}
 <div class="footer-brand">
 <img src="logo.png" alt="ASENERGY">
 <p>Industrial battery energy storage systems for construction sites. Clean, quiet, powerful — built to replace diesel.</p>
+<a href="tel:+61405659080" style="display:inline-flex;align-items:center;gap:8px;color:#2E7D32;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;letter-spacing:1px;margin-top:12px;text-decoration:none">&#128222; +61 405 659 080</a>
+<div style="margin-top:8px;font-size:.78rem;color:#555">6:00am – 6:00pm AEST</div>
 </div>
 <div>
 <h5>Products</h5>
@@ -1499,7 +1758,7 @@ section{padding:80px 0}
 </div>
 </div>
 <div class="footer-bottom">
-<span>&copy; 2024 ASENERGY. All rights reserved.</span>
+<span>&copy; 2025 ASENERGY. All rights reserved.</span>
 <span>Diesel-Free Energy for Construction</span>
 <a href="https://www.linkedin.com/company/asenergyco" target="_blank" rel="noopener" style="color:#2E7D32;font-size:.78rem;display:inline-flex;align-items:center;gap:6px">LinkedIn &#8599;</a>
 </div>
@@ -1733,9 +1992,32 @@ alert('Network error. Please check your connection and try again.');
 });
 }
 
+/* ===== SCROLL REVEAL ===== */
+function initReveal() {
+var observer = new IntersectionObserver(function(entries) {
+entries.forEach(function(entry) {
+if(entry.isIntersecting) {
+entry.target.classList.add('visible');
+observer.unobserve(entry.target);
+}
+});
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(function(el) {
+observer.observe(el);
+});
+}
+
+/* ===== SMOOTH PAGE TRANSITION ===== */
+var origShowPage = showPage;
+function showPage(page) {
+origShowPage(page);
+setTimeout(function(){ initReveal(); }, 50);
+}
+
 /* ===== INIT ===== */
 document.addEventListener('DOMContentLoaded', function(){
 runCounters();
+initReveal();
 });
 </script>
 </body>
