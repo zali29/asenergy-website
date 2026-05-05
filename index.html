@@ -210,15 +210,22 @@ section{padding:80px 0}
 .nav{position:fixed;top:0;left:0;right:0;height:72px;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid #E0E0E0;z-index:1000;display:flex;align-items:center}
 .nav .container{display:flex;align-items:center;justify-content:space-between;width:100%}
 .nav-logo img{height:40px}
-.nav-links{display:flex;gap:32px;align-items:center}
-.nav-links a{font-family:'Barlow Condensed',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:2px;font-size:.85rem;color:#0A0A0A;transition:color .2s;cursor:pointer}
-.nav-links a:hover,.nav-links a.active{color:#2E7D32}
+.nav-links{display:none}
 .nav-cta .btn{padding:10px 24px;font-size:.8rem}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px}
-.hamburger span{width:24px;height:2px;background:#0A0A0A;transition:all .2s}
-.mobile-menu{display:none;position:fixed;top:72px;left:0;right:0;background:#FFF;border-bottom:1px solid #E0E0E0;padding:24px;flex-direction:column;gap:16px;z-index:999}
+.hamburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;padding:10px;border:1px solid #E0E0E0;border-radius:3px;transition:all .2s}
+.hamburger:hover{border-color:#2E7D32}
+.hamburger:hover span{background:#2E7D32}
+.hamburger span{width:22px;height:2px;background:#0A0A0A;transition:all .2s;display:block}
+.hamburger.active span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;top:72px;left:0;right:0;background:#FFF;border-bottom:1px solid #E0E0E0;padding:24px;flex-direction:column;gap:4px;z-index:999;box-shadow:0 12px 30px rgba(0,0,0,.08)}
 .mobile-menu.open{display:flex}
-.mobile-menu a{font-family:'Barlow Condensed',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:2px;font-size:1rem;padding:8px 0;cursor:pointer}
+.mobile-menu a{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:2px;font-size:1rem;padding:14px 16px;cursor:pointer;border-radius:3px;transition:all .2s;color:#0A0A0A;display:flex;align-items:center;justify-content:space-between}
+.mobile-menu a:hover{background:#F8F8F8;color:#2E7D32;padding-left:24px}
+.mobile-menu a::after{content:'\2192';opacity:0;transition:all .2s}
+.mobile-menu a:hover::after{opacity:1}
+.mobile-menu .menu-divider{height:1px;background:#E0E0E0;margin:8px 0}
 
 /* ===== PAGE SYSTEM ===== */
 .page{display:none}
@@ -521,8 +528,7 @@ section{padding:80px 0}
 }
 
 @media(max-width:768px){
-.nav-links,.nav-cta{display:none}
-.hamburger{display:flex}
+.nav-cta{display:none}
 .hero{padding:100px 0 60px;min-height:auto}
 .hero h1{font-size:2.8rem}
 .hero-stats{grid-template-columns:1fr 1fr}
@@ -663,7 +669,10 @@ section{padding:80px 0}
 <a onclick="showPage('applications');closeMobile()">Applications</a>
 <a onclick="showPage('about');closeMobile()">About</a>
 <a onclick="showPage('contact');closeMobile()">Contact</a>
-<button class="btn btn-primary btn-sm" onclick="showPage('contact');closeMobile()" style="width:100%">Get a Quote</button>
+<div class="menu-divider"></div>
+<a href="tel:+61405659080" style="color:#2E7D32">&#128222; +61 405 659 080</a>
+<a href="https://www.linkedin.com/company/asenergyco" target="_blank" rel="noopener" style="color:#2E7D32">LinkedIn</a>
+<button class="btn btn-primary btn-sm" onclick="showPage('contact');closeMobile()" style="width:100%;margin-top:8px">Get a Quote</button>
 </div>
 
 <!-- ==================== HOME PAGE ==================== -->
@@ -1879,6 +1888,7 @@ if(link) link.classList.add('active');
 window.scrollTo(0,0);
 closeMobile();
 if(page === 'home') runCounters();
+setTimeout(function(){ if(typeof initReveal==='function') initReveal(); }, 50);
 }
 
 function showProductPage(model) {
@@ -1922,9 +1932,11 @@ showPage('product-detail');
 /* ===== MOBILE MENU ===== */
 function toggleMobile() {
 document.getElementById('mobileMenu').classList.toggle('open');
+document.querySelector('.hamburger').classList.toggle('active');
 }
 function closeMobile() {
 document.getElementById('mobileMenu').classList.remove('open');
+document.querySelector('.hamburger').classList.remove('active');
 }
 
 /* ===== FAQ TOGGLE ===== */
@@ -2005,13 +2017,6 @@ observer.unobserve(entry.target);
 document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(function(el) {
 observer.observe(el);
 });
-}
-
-/* ===== SMOOTH PAGE TRANSITION ===== */
-var origShowPage = showPage;
-function showPage(page) {
-origShowPage(page);
-setTimeout(function(){ initReveal(); }, 50);
 }
 
 /* ===== INIT ===== */
