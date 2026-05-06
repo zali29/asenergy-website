@@ -246,8 +246,8 @@ section{padding:80px 0}
 .hero-plug-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(46,125,50,.15);border:1px solid rgba(46,125,50,.35);color:#2E7D32;padding:8px 16px;border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:2px;font-size:.75rem;margin-top:20px}
 
 /* Product Images */
-.prod-img-wrap{width:100%;height:180px;overflow:hidden;border-radius:3px;margin-bottom:16px;background:#F0F0F0;display:flex;align-items:center;justify-content:center}
-.prod-img-wrap img{width:100%;height:100%;object-fit:cover}
+.prod-img-wrap{width:100%;height:240px;overflow:hidden;border-radius:3px;margin-bottom:16px;background:#F0F0F0;display:flex;align-items:center;justify-content:center;padding:16px;transition:background .3s}
+.prod-img-wrap img{width:100%;height:100%;object-fit:contain;display:block}
 .product-card:hover .prod-img-wrap{background:#1A1A1A}
 .ep-img-wrap{width:100%;height:140px;overflow:hidden;border-radius:3px;margin-bottom:12px;background:#F8F8F8;display:flex;align-items:center;justify-content:center}
 .ep-img-wrap img{max-height:100%;object-fit:contain;padding:8px}
@@ -257,8 +257,8 @@ section{padding:80px 0}
 .enercube-img{width:100%;height:250px;object-fit:cover;border-radius:3px;border:1px solid #2A2A2A}
 
 /* ===== IMAGE CAROUSEL ===== */
-.carousel{position:relative;width:100%;background:#111;border:1px solid #2A2A2A;border-radius:3px;overflow:hidden}
-.carousel-track{position:relative;width:100%;aspect-ratio:4/3;background:#0A0A0A}
+.carousel{position:relative;width:100%;background:#FFF;border:1px solid #E0E0E0;border-radius:3px;overflow:hidden}
+.carousel-track{position:relative;width:100%;aspect-ratio:4/3;background:#F8F8F8}
 .carousel-slide{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .5s cubic-bezier(.22,1,.36,1);padding:24px}
 .carousel-slide.active{opacity:1;z-index:2}
 .carousel-slide img{max-width:100%;max-height:100%;object-fit:contain}
@@ -799,17 +799,18 @@ section{padding:80px 0}
 <button class="btn btn-outline btn-sm" onclick="showPage('products')">View All Products</button>
 </div>
 <div class="grid-2">
-<!-- HT375 -->
+<!-- HT375 & PRO -->
 <div class="product-card" onclick="showProductPage('ht375')">
-<div class="prod-img-wrap"><img src="ht375.jpg" alt="ASENERGY HT375"></div>
-<div class="prod-name">HT375</div>
+<span class="prod-badge pro">STD &amp; PRO</span>
+<div class="prod-img-wrap"><img src="ht375.jpg" alt="ASENERGY HT375 and HT375 PRO"></div>
+<div class="prod-name">HT375 &amp; HT375 PRO</div>
 <div class="prod-kw">375<span style="font-size:1.2rem">kVA</span></div>
-<p class="prod-desc">The reliable workhorse. 300kW output for single-crane and hoist operations. Only ~2.5m&sup2; footprint, 1,500kg.</p>
+<p class="prod-desc">The reliable workhorse. 300kW output for crane and hoist operations. Standard and PRO models — PRO accepts 80kW input for faster recharge.</p>
 <div class="prod-specs">
 <div class="prod-spec-box"><div class="spec-val">300kW</div><div class="spec-lbl">Output</div></div>
 <div class="prod-spec-box"><div class="spec-val">&lt;45dB</div><div class="spec-lbl">Noise</div></div>
 <div class="prod-spec-box"><div class="spec-val">IP65</div><div class="spec-lbl">Protection</div></div>
-<div class="prod-spec-box"><div class="spec-val">1,500kg</div><div class="spec-lbl">Weight</div></div>
+<div class="prod-spec-box"><div class="spec-val">2 Models</div><div class="spec-lbl">Std &amp; Pro</div></div>
 </div>
 <button class="btn btn-outline btn-sm" style="width:100%">View Details &rarr;</button>
 </div>
@@ -1072,15 +1073,16 @@ section{padding:80px 0}
 <h2 class="section-title">HT SERIES</h2>
 <div class="grid-2" style="margin-top:32px">
 <div class="product-card" onclick="showProductPage('ht375')">
-<div class="prod-img-wrap"><img src="ht375.jpg" alt="ASENERGY HT375"></div>
-<div class="prod-name">HT375</div>
+<span class="prod-badge pro">STD &amp; PRO</span>
+<div class="prod-img-wrap"><img src="ht375.jpg" alt="ASENERGY HT375 and HT375 PRO"></div>
+<div class="prod-name">HT375 &amp; HT375 PRO</div>
 <div class="prod-kw">375<span style="font-size:1.2rem">kVA</span></div>
-<p class="prod-desc">The reliable workhorse. 300kW output for single-crane and hoist operations. Only ~2.5m&sup2; footprint, 1,500kg.</p>
+<p class="prod-desc">The reliable workhorse. 300kW output for crane and hoist operations. Standard and PRO models — PRO accepts 80kW input for faster recharge.</p>
 <div class="prod-specs">
 <div class="prod-spec-box"><div class="spec-val">300kW</div><div class="spec-lbl">Output</div></div>
 <div class="prod-spec-box"><div class="spec-val">&lt;45dB</div><div class="spec-lbl">Noise</div></div>
 <div class="prod-spec-box"><div class="spec-val">IP65</div><div class="spec-lbl">Protection</div></div>
-<div class="prod-spec-box"><div class="spec-val">1,500kg</div><div class="spec-lbl">Weight</div></div>
+<div class="prod-spec-box"><div class="spec-val">2 Models</div><div class="spec-lbl">Std &amp; Pro</div></div>
 </div>
 <button class="btn btn-outline btn-sm" style="width:100%">View Details &rarr;</button>
 </div>
@@ -1255,6 +1257,39 @@ section{padding:80px 0}
 <div class="label">Key Features</div>
 <h2 class="section-title">BUILT FOR PERFORMANCE</h2>
 <div class="grid-3" id="detail-features" style="margin-top:32px"></div>
+</div>
+</section>
+
+<!-- Comparison Table (HT375 only) -->
+<section id="detail-comparison-section" style="display:none">
+<div class="container">
+<div class="label">Standard vs PRO</div>
+<h2 class="section-title">HT375 vs HT375 PRO</h2>
+<p style="color:#555;max-width:700px;margin-bottom:24px">Both models deliver the same powerful 375kVA / 300kW output. The PRO variant doubles the input capacity for faster recharge cycles on demanding sites.</p>
+<div style="overflow-x:auto">
+<table class="prod-compare" style="margin-top:8px">
+<thead>
+<tr>
+<th>Specification</th>
+<th>HT375</th>
+<th class="ht375pro">HT375 PRO</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>Maximum Output Power</td><td>375kVA</td><td>375kVA</td></tr>
+<tr><td>Maximum Recyclability</td><td>300kW</td><td>300kW</td></tr>
+<tr><td>Maximum Input Power</td><td>0&ndash;40kW</td><td><strong>0&ndash;80kW</strong></td></tr>
+<tr><td>Charge Time</td><td>Standard</td><td><strong>Faster</strong></td></tr>
+<tr><td>Noise Level</td><td>&lt;45dB</td><td>&lt;45dB</td></tr>
+<tr><td>IP Rating</td><td>IP65</td><td>IP65</td></tr>
+<tr><td>Operating Temperature</td><td>&minus;20&deg;C to +45&deg;C</td><td>&minus;20&deg;C to +45&deg;C</td></tr>
+<tr><td>Cooling</td><td>Liquid Cooled</td><td>Liquid Cooled</td></tr>
+<tr><td>Dimensions</td><td>1650 &times; 1400 &times; 1800mm</td><td>1850 &times; 1400 &times; 2000mm</td></tr>
+<tr><td>Weight</td><td>1,500kg</td><td>1,800kg</td></tr>
+<tr><td>Best For</td><td>Standard duty cycle sites</td><td>High-duty cycle, fast turnaround</td></tr>
+</tbody>
+</table>
+</div>
 </div>
 </section>
 
@@ -1738,8 +1773,9 @@ section{padding:80px 0}
 var products = {
 ht375: {
 label: 'Standard & PRO Power Unit',
-name: 'HT375',
+name: 'HT375 & HT375 PRO',
 tagline: 'Compact power for cranes & hoists — Standard and PRO models',
+showComparison: true,
 desc: 'The dependable workhorse of the ASENERGY range. Available in Standard and PRO configurations. Built for crane and hoist operations, the HT375 delivers consistent, reliable power across full working shifts — cleanly, quietly, and cost-effectively. The PRO variant accepts up to 80kW input for faster charging on demanding sites.',
 img: 'ht375.jpg',
 images: ['ht375.jpg', 'ht375pro-onsite.png'],
@@ -1878,6 +1914,10 @@ p.specs.forEach(function(s){
 sHtml += '<tr><td>'+s[0]+'</td><td>'+s[1]+'</td></tr>';
 });
 document.getElementById('detail-specs').innerHTML = sHtml;
+
+// Show/hide comparison table for HT375
+var compSection = document.getElementById('detail-comparison-section');
+if(compSection) compSection.style.display = p.showComparison ? 'block' : 'none';
 
 var faqHtml = '';
 p.faqs.forEach(function(f,i){
