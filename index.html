@@ -114,9 +114,9 @@
       "item": {
         "@type": "Product",
         "name": "ASENERGY HT375 Battery Energy Storage System",
-        "description": "375kVA industrial battery energy storage system. 300kW recyclability, IP65 rated for harsh environments.",
+        "description": "375kVA industrial battery energy storage system available in Standard and PRO configurations. 300kW recyclability, IP65 rated for harsh environments.",
         "brand": {"@type": "Brand", "name": "ASENERGY"},
-        "image": "https://asenergy.com.au/ht375.png"
+        "image": "https://asenergy.com.au/ht375.jpg"
       }
     },
     {
@@ -124,21 +124,10 @@
       "position": 6,
       "item": {
         "@type": "Product",
-        "name": "ASENERGY HT375PRO Battery Energy Storage System",
-        "description": "Professional 375kVA battery energy storage with enhanced 80kW input. Built for demanding construction and infrastructure projects.",
+        "name": "ASENERGY ES500 Containerised BESS",
+        "description": "500kVA containerised battery energy storage system. 497kWh capacity, 6000+ cycles. For mining, grid integration, and largest construction sites.",
         "brand": {"@type": "Brand", "name": "ASENERGY"},
-        "image": "https://asenergy.com.au/ht375pro-onsite.png"
-      }
-    },
-    {
-      "@type": "ListItem",
-      "position": 7,
-      "item": {
-        "@type": "Product",
-        "name": "ASENERGY HT500 Containerised BESS",
-        "description": "500kVA containerised battery energy storage system. 500kWh capacity, 6000+ cycles. Large-scale site power.",
-        "brand": {"@type": "Brand", "name": "ASENERGY"},
-        "image": "https://asenergy.com.au/ht500.png"
+        "image": "https://asenergy.com.au/es500.png"
       }
     }
   ]
@@ -264,8 +253,22 @@ section{padding:80px 0}
 .ep-img-wrap img{max-height:100%;object-fit:contain;padding:8px}
 .ep-card:hover .ep-img-wrap{background:#1A1A1A}
 .detail-display-img{width:100%;max-height:350px;object-fit:contain;border-radius:3px;margin-bottom:16px}
-.app-visual-img{width:100%;height:200px;object-fit:cover;border-radius:3px;margin-bottom:16px;border:1px solid #2A2A2A}
+.app-visual-img{width:100%;max-height:240px;object-fit:contain;border-radius:3px;margin-bottom:16px;border:none;background:transparent}
 .enercube-img{width:100%;height:250px;object-fit:cover;border-radius:3px;border:1px solid #2A2A2A}
+
+/* ===== IMAGE CAROUSEL ===== */
+.carousel{position:relative;width:100%;background:#111;border:1px solid #2A2A2A;border-radius:3px;overflow:hidden}
+.carousel-track{position:relative;width:100%;aspect-ratio:4/3;background:#0A0A0A}
+.carousel-slide{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .5s cubic-bezier(.22,1,.36,1);padding:24px}
+.carousel-slide.active{opacity:1;z-index:2}
+.carousel-slide img{max-width:100%;max-height:100%;object-fit:contain}
+.carousel-btn{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:rgba(0,0,0,.7);border:1px solid rgba(46,125,50,.4);color:#FFF;font-size:1.4rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:3;transition:all .2s;backdrop-filter:blur(8px)}
+.carousel-btn:hover{background:#2E7D32;border-color:#2E7D32}
+.carousel-btn.prev{left:16px}
+.carousel-btn.next{right:16px}
+.carousel-dots{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:3}
+.carousel-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);border:none;cursor:pointer;transition:all .2s;padding:0}
+.carousel-dot.active{background:#2E7D32;width:24px;border-radius:4px}
 
 /* ===== BENEFITS CARDS ===== */
 .benefit-card{background:#FFF;border:1px solid #E0E0E0;border-radius:3px;padding:32px;transition:all .2s}
@@ -450,7 +453,7 @@ section{padding:80px 0}
 
 /* ===== APPLICATIONS PAGE ===== */
 .app-section{padding:80px 0}
-.app-visual{background:#0A0A0A;border-radius:3px;padding:48px;text-align:center;color:#FFF}
+.app-visual{background:#0A0A0A;border-radius:3px;padding:32px;text-align:center;color:#FFF;display:flex;flex-direction:column;justify-content:center;min-height:340px}
 .app-visual .app-icon{font-size:4rem;margin-bottom:16px}
 .app-visual .app-sub{font-family:'Barlow Condensed',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:2px;font-size:.75rem;color:#2E7D32;margin-bottom:8px}
 .app-visual .app-main{font-family:'Bebas Neue',sans-serif;font-size:2rem}
@@ -795,10 +798,10 @@ section{padding:80px 0}
 </div>
 <button class="btn btn-outline btn-sm" onclick="showPage('products')">View All Products</button>
 </div>
-<div class="grid-3">
+<div class="grid-2">
 <!-- HT375 -->
 <div class="product-card" onclick="showProductPage('ht375')">
-<div class="prod-img-wrap"><img src="ht375.png" alt="ASENERGY HT375"></div>
+<div class="prod-img-wrap"><img src="ht375.jpg" alt="ASENERGY HT375"></div>
 <div class="prod-name">HT375</div>
 <div class="prod-kw">375<span style="font-size:1.2rem">kVA</span></div>
 <p class="prod-desc">The reliable workhorse. 300kW output for single-crane and hoist operations. Only ~2.5m&sup2; footprint, 1,500kg.</p>
@@ -810,33 +813,18 @@ section{padding:80px 0}
 </div>
 <button class="btn btn-outline btn-sm" style="width:100%">View Details &rarr;</button>
 </div>
-<!-- HT375PRO -->
-<div class="product-card" onclick="showProductPage('ht375pro')" style="background:#0A0A0A;border-color:#2A2A2A;color:#FFF">
-<span class="prod-badge pro">PRO</span>
-<div class="prod-img-wrap" style="background:#1A1A1A"><img src="ht375pro-onsite.png" alt="ASENERGY HT375PRO on site"></div>
-<div class="prod-name" style="color:#2E7D32">HT375PRO</div>
-<div class="prod-kw" style="color:#FFF">375<span style="font-size:1.2rem">kVA</span></div>
-<p class="prod-desc" style="color:#999">Enhanced input capacity up to 80kW for faster charging. 300kW output, advanced IoT monitoring.</p>
-<div class="prod-specs">
-<div class="prod-spec-box" style="background:#1A1A1A;border-color:#2A2A2A"><div class="spec-val" style="color:#FFF">300kW</div><div class="spec-lbl">Output</div></div>
-<div class="prod-spec-box" style="background:#1A1A1A;border-color:#2A2A2A"><div class="spec-val" style="color:#FFF">&lt;45dB</div><div class="spec-lbl">Noise</div></div>
-<div class="prod-spec-box" style="background:#1A1A1A;border-color:#2A2A2A"><div class="spec-val" style="color:#FFF">IP65</div><div class="spec-lbl">Protection</div></div>
-<div class="prod-spec-box" style="background:#1A1A1A;border-color:#2A2A2A"><div class="spec-val" style="color:#FFF">1,800kg</div><div class="spec-lbl">Weight</div></div>
-</div>
-<button class="btn btn-outline-white btn-sm" style="width:100%">View Details &rarr;</button>
-</div>
-<!-- HT500 -->
-<div class="product-card" onclick="showProductPage('ht500')">
+<!-- ES500 -->
+<div class="product-card" onclick="showProductPage('es500')">
 <span class="prod-badge flagship">FLAGSHIP</span>
-<div class="prod-img-wrap"><img src="ht500.png" alt="ASENERGY HT500"></div>
-<div class="prod-name">HT500</div>
+<div class="prod-img-wrap"><img src="es500.png" alt="ASENERGY ES500"></div>
+<div class="prod-name">ES500</div>
 <div class="prod-kw">500<span style="font-size:1.2rem">kVA</span></div>
-<p class="prod-desc">Maximum output. 600kVA peak, 500kWh battery, 6,000+ cycle life. Charge at night, discharge all day.</p>
+<p class="prod-desc">Maximum output. 600kVA peak, 497kWh battery, 6,000+ cycle life. For mining, grid integration, and largest construction sites.</p>
 <div class="prod-specs">
-<div class="prod-spec-box"><div class="spec-val">500kWh</div><div class="spec-lbl">Battery</div></div>
+<div class="prod-spec-box"><div class="spec-val">497kWh</div><div class="spec-lbl">Battery</div></div>
 <div class="prod-spec-box"><div class="spec-val">500kW</div><div class="spec-lbl">Output</div></div>
-<div class="prod-spec-box"><div class="spec-val">IP55</div><div class="spec-lbl">Protection</div></div>
-<div class="prod-spec-box"><div class="spec-val">9,000kg</div><div class="spec-lbl">Weight</div></div>
+<div class="prod-spec-box"><div class="spec-val">IP54</div><div class="spec-lbl">Protection</div></div>
+<div class="prod-spec-box"><div class="spec-val">11,000kg</div><div class="spec-lbl">Weight</div></div>
 </div>
 <button class="btn btn-outline btn-sm" style="width:100%">View Details &rarr;</button>
 </div>
@@ -930,13 +918,13 @@ section{padding:80px 0}
 <div class="usecase-num">01</div>
 <h3>Tower Cranes</h3>
 <p>Peak demand management for tower crane operations. Full shift runtime with zero diesel dependency.</p>
-<span class="model-pill">HT500</span><span class="model-pill">HT375PRO</span>
+<span class="model-pill">ES500</span><span class="model-pill">HT375</span>
 </div>
 <div class="usecase-card" onclick="showPage('applications')">
 <div class="usecase-num">02</div>
 <h3>Hoists &amp; Material Lifts</h3>
 <p>Continuous duty cycle power for passenger and material hoists. Reliable, quiet, and always monitored.</p>
-<span class="model-pill">HT375PRO</span><span class="model-pill">HT375</span>
+<span class="model-pill">HT375</span>
 </div>
 <div class="usecase-card" onclick="showPage('applications')">
 <div class="usecase-num">03</div>
@@ -948,7 +936,7 @@ section{padding:80px 0}
 <div class="usecase-num">04</div>
 <h3>Dual Crane Operations</h3>
 <p>500kW output with smart load balancing for multi-crane sites. One system, two cranes, zero emissions.</p>
-<span class="model-pill">HT500</span>
+<span class="model-pill">ES500</span>
 </div>
 </div>
 </div>
@@ -963,36 +951,20 @@ section{padding:80px 0}
 <h2 class="section-title reveal reveal-delay-1">PROJECT CASE STUDIES</h2>
 </div>
 </div>
-<div class="grid-2" style="gap:28px">
+<div style="display:grid;grid-template-columns:1fr;gap:28px;max-width:900px;margin:0 auto">
 <div class="case-study-card reveal reveal-delay-1">
-<img src="ht-onsite.png" alt="ASENERGY HT375 Cypress Palms Meriton Gold Coast" class="case-study-img">
+<img src="ht-onsite.png" alt="ASENERGY at Meriton Iconica and Cypress Palms Gold Coast" class="case-study-img" style="height:380px">
 <div class="case-study-body">
 <span class="case-study-tag">&#127959; Gold Coast, Australia</span>
-<h3>MERITON CYPRESS PALMS</h3>
-<p>Powering the tower crane and construction hoists at one of the Gold Coast's most prestigious residential developments. ASENERGY replaced the diesel generator entirely — delivering clean, silent power across full working shifts with zero fuel costs and zero noise complaints.</p>
+<h3>POWERING THE BIGGEST PROJECTS ON THE GOLD COAST</h3>
+<p>ASENERGY is currently powering two of the largest developments on the Gold Coast — <strong>Meriton Iconica</strong> and <strong>Meriton Cypress Palms</strong>. Our HT375 systems run the tower cranes and construction hoists on both sites, replacing diesel generators entirely. The result: zero on-site emissions, no noise complaints from neighbours, and full shift runtime across every working day. These projects prove ASENERGY systems are ready for Australia's most demanding high-rise construction.</p>
 <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px">
-<span class="model-pill">HT375</span><span class="model-pill">Tower Crane</span><span class="model-pill">Hoists</span>
+<span class="model-pill">HT375</span><span class="model-pill">Tower Cranes</span><span class="model-pill">Hoists</span><span class="model-pill">High-Rise</span>
 </div>
 <div class="case-study-stats">
+<div class="cs-stat"><div class="cs-val">2</div><div class="cs-lbl">Active Projects</div></div>
 <div class="cs-stat"><div class="cs-val">60%</div><div class="cs-lbl">Cost Reduction</div></div>
 <div class="cs-stat"><div class="cs-val">0</div><div class="cs-lbl">Diesel Used</div></div>
-<div class="cs-stat"><div class="cs-val">&lt;45dB</div><div class="cs-lbl">Noise Output</div></div>
-</div>
-</div>
-</div>
-<div class="case-study-card reveal reveal-delay-2">
-<img src="ht375pro-onsite.png" alt="ASENERGY HT375PRO Iconica Meriton Gold Coast" class="case-study-img">
-<div class="case-study-body">
-<span class="case-study-tag">&#127959; Gold Coast, Australia</span>
-<h3>MERITON ICONICA</h3>
-<p>Deployed on the Iconica tower development on the Gold Coast, the HT375PRO powers the site's tower crane with enhanced 80kW input capacity for faster overnight recharging. Operating silently in a residential corridor, it eliminated all diesel-related compliance issues from day one.</p>
-<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px">
-<span class="model-pill">HT375PRO</span><span class="model-pill">Tower Crane</span><span class="model-pill">High-Rise</span>
-</div>
-<div class="case-study-stats">
-<div class="cs-stat"><div class="cs-val">80kW</div><div class="cs-lbl">Fast Charge</div></div>
-<div class="cs-stat"><div class="cs-val">0</div><div class="cs-lbl">Complaints</div></div>
-<div class="cs-stat"><div class="cs-val">24/7</div><div class="cs-lbl">Monitoring</div></div>
 </div>
 </div>
 </div>
@@ -1098,9 +1070,9 @@ section{padding:80px 0}
 <div class="container">
 <div class="label">Construction Power Units</div>
 <h2 class="section-title">HT SERIES</h2>
-<div class="grid-3" style="margin-top:32px">
+<div class="grid-2" style="margin-top:32px">
 <div class="product-card" onclick="showProductPage('ht375')">
-<div class="prod-img-wrap"><img src="ht375.png" alt="ASENERGY HT375"></div>
+<div class="prod-img-wrap"><img src="ht375.jpg" alt="ASENERGY HT375"></div>
 <div class="prod-name">HT375</div>
 <div class="prod-kw">375<span style="font-size:1.2rem">kVA</span></div>
 <p class="prod-desc">The reliable workhorse. 300kW output for single-crane and hoist operations. Only ~2.5m&sup2; footprint, 1,500kg.</p>
@@ -1112,31 +1084,17 @@ section{padding:80px 0}
 </div>
 <button class="btn btn-outline btn-sm" style="width:100%">View Details &rarr;</button>
 </div>
-<div class="product-card" onclick="showProductPage('ht375pro')" style="background:#0A0A0A;border-color:#2A2A2A;color:#FFF">
-<span class="prod-badge pro">PRO</span>
-<div class="prod-img-wrap" style="background:#1A1A1A"><img src="ht375pro-onsite.png" alt="ASENERGY HT375PRO on site"></div>
-<div class="prod-name" style="color:#2E7D32">HT375PRO</div>
-<div class="prod-kw" style="color:#FFF">375<span style="font-size:1.2rem">kVA</span></div>
-<p class="prod-desc" style="color:#999">Enhanced input capacity up to 80kW for faster charging. 300kW output, advanced IoT monitoring.</p>
-<div class="prod-specs">
-<div class="prod-spec-box" style="background:#1A1A1A;border-color:#2A2A2A"><div class="spec-val" style="color:#FFF">300kW</div><div class="spec-lbl">Output</div></div>
-<div class="prod-spec-box" style="background:#1A1A1A;border-color:#2A2A2A"><div class="spec-val" style="color:#FFF">&lt;45dB</div><div class="spec-lbl">Noise</div></div>
-<div class="prod-spec-box" style="background:#1A1A1A;border-color:#2A2A2A"><div class="spec-val" style="color:#FFF">IP65</div><div class="spec-lbl">Protection</div></div>
-<div class="prod-spec-box" style="background:#1A1A1A;border-color:#2A2A2A"><div class="spec-val" style="color:#FFF">1,800kg</div><div class="spec-lbl">Weight</div></div>
-</div>
-<button class="btn btn-outline-white btn-sm" style="width:100%">View Details &rarr;</button>
-</div>
-<div class="product-card" onclick="showProductPage('ht500')">
+<div class="product-card" onclick="showProductPage('es500')">
 <span class="prod-badge flagship">FLAGSHIP</span>
-<div class="prod-img-wrap"><img src="ht500.png" alt="ASENERGY HT500"></div>
-<div class="prod-name">HT500</div>
+<div class="prod-img-wrap"><img src="es500.png" alt="ASENERGY ES500"></div>
+<div class="prod-name">ES500</div>
 <div class="prod-kw">500<span style="font-size:1.2rem">kVA</span></div>
-<p class="prod-desc">Maximum output. 600kVA peak, 500kWh battery, 6,000+ cycle life. Charge at night, discharge all day.</p>
+<p class="prod-desc">Maximum output. 600kVA peak, 497kWh battery, 6,000+ cycle life. For mining, grid integration, and largest construction sites.</p>
 <div class="prod-specs">
-<div class="prod-spec-box"><div class="spec-val">500kWh</div><div class="spec-lbl">Battery</div></div>
+<div class="prod-spec-box"><div class="spec-val">497kWh</div><div class="spec-lbl">Battery</div></div>
 <div class="prod-spec-box"><div class="spec-val">500kW</div><div class="spec-lbl">Output</div></div>
-<div class="prod-spec-box"><div class="spec-val">IP55</div><div class="spec-lbl">Protection</div></div>
-<div class="prod-spec-box"><div class="spec-val">9,000kg</div><div class="spec-lbl">Weight</div></div>
+<div class="prod-spec-box"><div class="spec-val">IP54</div><div class="spec-lbl">Protection</div></div>
+<div class="prod-spec-box"><div class="spec-val">11,000kg</div><div class="spec-lbl">Weight</div></div>
 </div>
 <button class="btn btn-outline btn-sm" style="width:100%">View Details &rarr;</button>
 </div>
@@ -1277,9 +1235,14 @@ section{padding:80px 0}
 </div>
 </div>
 <div>
-<div class="detail-display">
-<img id="detail-img" class="detail-display-img" src="" alt="">
-<h3 id="detail-display-name"></h3>
+<div class="detail-display" style="padding:0;background:transparent;border:none">
+<div class="carousel" id="detailCarousel">
+<div class="carousel-track" id="carouselTrack"></div>
+<button class="carousel-btn prev" onclick="carouselPrev()" aria-label="Previous image">&#10094;</button>
+<button class="carousel-btn next" onclick="carouselNext()" aria-label="Next image">&#10095;</button>
+<div class="carousel-dots" id="carouselDots"></div>
+</div>
+<h3 id="detail-display-name" style="margin-top:20px"></h3>
 </div>
 </div>
 </div>
@@ -1342,7 +1305,7 @@ section{padding:80px 0}
 <div class="container">
 <div class="grid-2">
 <div class="app-visual">
-<img src="ht500.png" alt="HT500 powering tower crane" class="app-visual-img">
+<img src="es500.png" alt="ES500 powering tower crane" class="app-visual-img">
 <div class="app-sub">Tower Crane Power</div>
 <div class="app-main">PEAK LOAD HANDLED</div>
 </div>
@@ -1355,7 +1318,7 @@ section{padding:80px 0}
 <div class="app-feature-row"><div class="app-feature-dot"></div><div><h5>Silent Operation</h5><p>Under 45dB — work in residential areas and noise-sensitive zones without restrictions.</p></div></div>
 <div class="app-feature-row"><div class="app-feature-dot"></div><div><h5>Full Shift Runtime</h5><p>Sized to deliver consistent power across a full 8-hour shift with capacity to spare.</p></div></div>
 </div>
-<div style="margin-top:20px"><button class="btn btn-outline btn-sm" onclick="showProductPage('ht500')">Recommended: HT500 &rarr;</button></div>
+<div style="margin-top:20px"><button class="btn btn-outline btn-sm" onclick="showProductPage('es500')">Recommended: ES500 &rarr;</button></div>
 </div>
 </div>
 </div>
@@ -1374,10 +1337,10 @@ section{padding:80px 0}
 <div class="app-feature-row"><div class="app-feature-dot"></div><div><h5>Overload Protection</h5><p>Advanced BMS prevents overloads and protects both the battery and your equipment.</p></div></div>
 <div class="app-feature-row"><div class="app-feature-dot"></div><div><h5>Remote Usage Tracking</h5><p>Monitor power consumption and usage patterns across your fleet from any device.</p></div></div>
 </div>
-<div style="margin-top:20px"><button class="btn btn-outline btn-sm" onclick="showProductPage('ht375pro')">Recommended: HT375PRO &rarr;</button></div>
+<div style="margin-top:20px"><button class="btn btn-outline btn-sm" onclick="showProductPage('ht375')">Recommended: HT375 &rarr;</button></div>
 </div>
 <div class="app-visual">
-<img src="ht375pro-onsite.png" alt="HT375PRO powering hoists" class="app-visual-img">
+<img src="ht375pro-onsite.png" alt="HT375 powering hoists" class="app-visual-img">
 <div class="app-sub">Hoist Power</div>
 <div class="app-main">CONTINUOUS DUTY READY</div>
 </div>
@@ -1419,16 +1382,16 @@ section{padding:80px 0}
 <div>
 <h3 style="font-size:1.8rem;margin-bottom:12px">Dual Crane Operations</h3>
 <p style="color:#555;margin-bottom:12px">The largest construction sites run multiple cranes simultaneously — and need a single power system capable of handling combined peak loads without failure.</p>
-<p style="color:#555;margin-bottom:20px">The HT500 delivers 500kW with smart load balancing, distributing power intelligently across two crane connections and providing a unified dashboard for fleet-level monitoring.</p>
+<p style="color:#555;margin-bottom:20px">The ES500 delivers 500kW with smart load balancing, distributing power intelligently across two crane connections and providing a unified dashboard for fleet-level monitoring.</p>
 <div class="app-features">
 <div class="app-feature-row"><div class="app-feature-dot"></div><div><h5>500kW Output</h5><p>Maximum power output to handle simultaneous crane operations at full capacity.</p></div></div>
 <div class="app-feature-row"><div class="app-feature-dot"></div><div><h5>Smart Load Balancing</h5><p>Intelligently distributes power between connected equipment based on demand.</p></div></div>
 <div class="app-feature-row"><div class="app-feature-dot"></div><div><h5>Multi-Equipment Dashboard</h5><p>Unified monitoring across all connected cranes and equipment from one interface.</p></div></div>
 </div>
-<div style="margin-top:20px"><button class="btn btn-outline btn-sm" onclick="showProductPage('ht500')">Recommended: HT500 &rarr;</button></div>
+<div style="margin-top:20px"><button class="btn btn-outline btn-sm" onclick="showProductPage('es500')">Recommended: ES500 &rarr;</button></div>
 </div>
 <div class="app-visual">
-<img src="ht500.png" alt="HT500 dual crane operations" class="app-visual-img">
+<img src="es500.png" alt="ES500 dual crane operations" class="app-visual-img">
 <div class="app-sub">Dual Crane Power</div>
 <div class="app-main">500KW DELIVERED</div>
 </div>
@@ -1579,23 +1542,21 @@ section{padding:80px 0}
 <div class="label reveal">Proven Track Record</div>
 <h2 class="section-title reveal reveal-delay-1">LIVE ON SITE</h2>
 <p style="color:#555;max-width:700px;margin-bottom:32px" class="reveal reveal-delay-2">Our systems are not prototypes. They are deployed, running, and delivering results on real construction sites across Australia and internationally.</p>
-<div class="grid-2" style="gap:28px">
+<div style="display:grid;grid-template-columns:1fr;gap:28px;max-width:900px;margin:0 auto">
 <div class="case-study-card reveal reveal-delay-1">
-<img src="ht-onsite.png" alt="Cypress Palms Meriton Gold Coast" class="case-study-img">
+<img src="ht-onsite.png" alt="ASENERGY at Meriton Iconica and Cypress Palms Gold Coast" class="case-study-img" style="height:380px">
 <div class="case-study-body">
-<span class="case-study-tag">Gold Coast, Australia</span>
-<h3>MERITON CYPRESS PALMS</h3>
-<p>HT375 replacing diesel generator on tower crane and hoists. Full shift runtime, zero fuel, zero noise complaints.</p>
-<div style="display:flex;flex-wrap:wrap;gap:6px"><span class="model-pill">HT375</span><span class="model-pill">Tower Crane</span><span class="model-pill">Hoists</span></div>
+<span class="case-study-tag">&#127959; Gold Coast, Australia</span>
+<h3>POWERING THE BIGGEST PROJECTS ON THE GOLD COAST</h3>
+<p>ASENERGY is currently powering two of the largest developments on the Gold Coast — <strong>Meriton Iconica</strong> and <strong>Meriton Cypress Palms</strong>. Our HT375 systems run the tower cranes and construction hoists on both sites, replacing diesel generators entirely. The result: zero on-site emissions, no noise complaints from neighbours, and full shift runtime across every working day. These projects prove ASENERGY systems are ready for Australia's most demanding high-rise construction.</p>
+<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px">
+<span class="model-pill">HT375</span><span class="model-pill">Tower Cranes</span><span class="model-pill">Hoists</span><span class="model-pill">High-Rise</span>
 </div>
+<div class="case-study-stats">
+<div class="cs-stat"><div class="cs-val">2</div><div class="cs-lbl">Active Projects</div></div>
+<div class="cs-stat"><div class="cs-val">60%</div><div class="cs-lbl">Cost Reduction</div></div>
+<div class="cs-stat"><div class="cs-val">0</div><div class="cs-lbl">Diesel Used</div></div>
 </div>
-<div class="case-study-card reveal reveal-delay-2">
-<img src="ht375pro-onsite.png" alt="Iconica Meriton Gold Coast" class="case-study-img">
-<div class="case-study-body">
-<span class="case-study-tag">Gold Coast, Australia</span>
-<h3>MERITON ICONICA</h3>
-<p>HT375PRO powering tower crane at Iconica high-rise development. Silent operation in residential corridor with 80kW fast charge capability.</p>
-<div style="display:flex;flex-wrap:wrap;gap:6px"><span class="model-pill">HT375PRO</span><span class="model-pill">Tower Crane</span><span class="model-pill">High-Rise</span></div>
 </div>
 </div>
 </div>
@@ -1695,8 +1656,7 @@ section{padding:80px 0}
 <option>Up to 10kW (EP Series)</option>
 <option>Up to 35kW (EP 35)</option>
 <option>Up to 375kW (HT375)</option>
-<option>Up to 375kW+ (HT375PRO)</option>
-<option>Up to 500kW (HT500)</option>
+<option>Up to 500kW (ES500)</option>
 <option>400kW+ (EnerCube)</option>
 <option>Not sure — need advice</option>
 </select>
@@ -1739,8 +1699,7 @@ section{padding:80px 0}
 <h5>Products</h5>
 <ul>
 <li><a onclick="showProductPage('ht375')">HT375</a></li>
-<li><a onclick="showProductPage('ht375pro')">HT375PRO</a></li>
-<li><a onclick="showProductPage('ht500')">HT500</a></li>
+<li><a onclick="showProductPage('es500')">ES500</a></li>
 <li><a onclick="showPage('products')">EP Station Series</a></li>
 <li><a onclick="showPage('products')">EnerCube 2.0</a></li>
 </ul>
@@ -1778,102 +1737,70 @@ section{padding:80px 0}
 /* ===== PRODUCT DATA ===== */
 var products = {
 ht375: {
-label: 'Standard Power Unit',
+label: 'Standard & PRO Power Unit',
 name: 'HT375',
-tagline: 'Compact power for single cranes & hoists',
-desc: 'The dependable workhorse of the ASENERGY range. Built for single-crane and hoist operations, the HT375 delivers consistent, reliable power across full working shifts — cleanly, quietly, and cost-effectively. Only requires 20–40kW input to deliver 300kW output.',
-img: 'ht375.png',
+tagline: 'Compact power for cranes & hoists — Standard and PRO models',
+desc: 'The dependable workhorse of the ASENERGY range. Available in Standard and PRO configurations. Built for crane and hoist operations, the HT375 delivers consistent, reliable power across full working shifts — cleanly, quietly, and cost-effectively. The PRO variant accepts up to 80kW input for faster charging on demanding sites.',
+img: 'ht375.jpg',
+images: ['ht375.jpg', 'ht375pro-onsite.png'],
 quickSpecs: [
 {val:'375kVA',lbl:'Max Output'},
 {val:'300kW',lbl:'Recyclability'},
 {val:'<45dB',lbl:'Noise'},
 {val:'IP65',lbl:'Protection'},
-{val:'2-8hrs',lbl:'Backup Time'},
-{val:'1,500kg',lbl:'Weight'}
+{val:'80kW',lbl:'PRO Input'},
+{val:'1500-1800kg',lbl:'Weight'}
 ],
 features: [
-{title:'375kVA / 300kW Output',desc:'Massive 300kW recyclability from only ~20kW input. Powers tower cranes and hoists across full working shifts.',icon:'&#9889;'},
+{title:'375kVA / 300kW Output',desc:'Massive 300kW recyclability with low input requirements. Powers tower cranes and hoists across full working shifts.',icon:'&#9889;'},
 {title:'Silent <45dB',desc:'Quieter than a normal conversation. No release of smoke or soot. Work in noise-sensitive areas without restrictions.',icon:'&#128264;'},
-{title:'Plug & Play',desc:'Delivered ready to connect. Occupies only ~2.5m² at 1,500kg. Fits in any space nearby crane and hoist.',icon:'&#128268;'},
+{title:'Plug & Play',desc:'Delivered ready to connect. Compact footprint fits in any space nearby cranes and hoists.',icon:'&#128268;'},
 {title:'IP65 All-Weather',desc:'Fully sealed against dust and water. Liquid cooled. Operates from −20°C to +45°C year-round.',icon:'&#127783;&#65039;'},
 {title:'IoT Remote Monitoring',desc:'10" touchscreen and IoT remote monitoring. Track performance and diagnostics from any device.',icon:'&#128225;'},
-{title:'Built-In Fire Safety',desc:'Battery module has built-in fire extinguishing design. Certified to UN38.3, IEC 62619, EN62477, EN61000.',icon:'&#128293;'}
+{title:'Standard or PRO',desc:'Standard model accepts up to 40kW input. PRO model accepts up to 80kW for faster recharge cycles.',icon:'&#128293;'}
 ],
 specs: [
-['Maximum Output Power','375kVA'],['Maximum Recyclability','300kW'],['Maximum Output Current','570A @ 380V / 541A @ 400V / 522A @ 415V'],['Overload Capacity','110% 10min / 120% 1min'],['Maximum Input Power','0–40kW (Adjustable)'],['Input Current Range','0–76A (Adjustable)'],['Input Voltage Range','360–440V 3-Phase + PE (No Neutral)'],['Input Frequency Range','45–65Hz'],['Rated Output Voltage','380/400/415V 3-Phase + Neutral'],['Output Frequency','50/60Hz'],['Surge Protection','Class C'],['Earthing System','TN-S'],['Noise Level','<45dB'],['IP Rating','IP65'],['Operating Temp','−20°C to +45°C'],['Cooling','Liquid Cooled'],['Control Method','10" Touchscreen & IoT Remote Monitoring'],['Dimensions','1650 × 1400 × 1800mm'],['Weight','1,500kg'],['Derating at Altitude','2,000m'],['Certifications','UN38.3 / IEC 62619 / EN62477 / EN61000'],['Warranty','3 Years'],['Battery Life','8–10 Years']
+['Maximum Output Power','375kVA'],['Maximum Recyclability','300kW'],['Maximum Output Current','570A @ 380V / 541A @ 400V / 522A @ 415V'],['Overload Capacity','110% 10min / 120% 1min'],['Maximum Input Power (Standard)','0–40kW (Adjustable)'],['Maximum Input Power (PRO)','0–80kW (Adjustable)'],['Input Voltage Range','360–440V 3-Phase + PE (No Neutral)'],['Input Frequency Range','45–65Hz'],['Rated Output Voltage','380/400/415V 3-Phase + Neutral'],['Output Frequency','50/60Hz'],['Surge Protection','Class C'],['Earthing System','TN-S'],['Noise Level','<45dB'],['IP Rating','IP65'],['Operating Temp','−20°C to +45°C'],['Cooling','Liquid Cooled'],['Control Method','10" Touchscreen & IoT Remote Monitoring'],['Dimensions (Standard)','1650 × 1400 × 1800mm'],['Dimensions (PRO)','1850 × 1400 × 2000mm'],['Weight (Standard)','1,500kg'],['Weight (PRO)','1,800kg'],['Certifications','UN38.3 / IEC 62619 / EN62477 / EN61000'],['Warranty','3 Years'],['Battery Life','8–10 Years']
 ],
 faqs: [
+{q:'What\'s the difference between Standard and PRO?',a:'Both deliver the same 375kVA / 300kW output with IP65 protection. The PRO accepts up to 80kW input (vs 40kW Standard), enabling faster charging cycles. PRO is slightly larger (1850×1400×2000mm vs 1650×1400×1800mm) at 1,800kg vs 1,500kg.'},
 {q:'How long does the HT375 battery last?',a:'The HT375 uses LiFePO4 cells rated for 3,000+ charge cycles, delivering an expected service life of 8–10 years under normal operating conditions.'},
 {q:'Is the HT375 safe to use on construction sites?',a:'Yes. The HT375 includes a multi-level Battery Management System (BMS) with built-in fire suppression, thermal monitoring, overcharge/over-discharge protection, and short-circuit protection as standard. It is fully certified to UN38.3, IEC 62619, CE, and RoHS standards.'},
 {q:'What cranes is the HT375 compatible with?',a:'The HT375 is compatible with most standard tower cranes and construction hoists that operate on 400V AC 3-phase power. Our engineering team can confirm compatibility with your specific equipment.'},
-{q:'Can I monitor the HT375 remotely?',a:'Yes. The HT375 includes an intelligent monitoring system accessible via 4G IoT connectivity. You can monitor state of charge, power output, temperature, and receive fault predictions and alerts from any device.'},
-{q:'What happens when the battery runs low?',a:'The BMS provides progressive warnings as the battery level decreases. The system will maintain stable output until a safe minimum threshold, then perform a controlled shutdown to protect the cells and connected equipment.'}
+{q:'Can I monitor the HT375 remotely?',a:'Yes. The HT375 includes an intelligent monitoring system accessible via 4G IoT connectivity. You can monitor state of charge, power output, temperature, and receive fault predictions and alerts from any device.'}
 ]
 },
-ht375pro: {
-label: 'Advanced Power Unit',
-name: 'HT375PRO',
-tagline: 'Enhanced intelligence for demanding construction sites',
-desc: 'The HT375PRO delivers greater capacity and accepts higher input power — built for sites that demand maximum performance and minimum downtime. Accepts up to 80kW input for faster charging.',
-img: 'ht375pro-onsite.png',
-quickSpecs: [
-{val:'375kVA',lbl:'Max Output'},
-{val:'300kW',lbl:'Recyclability'},
-{val:'<45dB',lbl:'Noise'},
-{val:'IP65',lbl:'Protection'},
-{val:'2-8hrs',lbl:'Backup Time'},
-{val:'1,800kg',lbl:'Weight'}
-],
-features: [
-{title:'Enhanced Output 375kW+',desc:'Greater sustained power output for more demanding applications and longer operational periods.',icon:'&#9889;'},
-{title:'Ultra-Quiet <42dB',desc:'Even quieter than the standard HT375 — ideal for inner-city sites and noise-restricted zones.',icon:'&#128264;'},
-{title:'Fast Charge 4-6hrs',desc:'Reduced charge time means faster turnaround and less downtime between shifts.',icon:'&#128267;'},
-{title:'Advanced Intelligent Monitoring',desc:'IMS with fault prediction and location — identify issues before they cause downtime.',icon:'&#128225;'},
-{title:'IP65 Industrial Hardened',desc:'Enhanced environmental protection for the most demanding construction site conditions.',icon:'&#127783;&#65039;'},
-{title:'Built-In Fire Safety',desc:'Advanced BMS with multi-level fire suppression, thermal runaway prevention, and real-time monitoring.',icon:'&#128293;'}
-],
-specs: [
-['Maximum Output Power','375kVA'],['Maximum Recyclability','300kW'],['Maximum Output Current','570A @ 380V / 541A @ 400V / 522A @ 415V'],['Overload Capacity','110% 10min / 120% 1min'],['Maximum Input Power','0–80kW (Adjustable)'],['Input Current Range','0–152A (Adjustable)'],['Input Voltage Range','360–440V 3-Phase + PE (No Neutral)'],['Input Frequency Range','45–65Hz'],['Rated Output Voltage','380/400/415V 3-Phase + Neutral'],['Output Frequency','50/60Hz'],['Surge Protection','Class C'],['Earthing System','TN-S'],['Noise Level','<45dB'],['IP Rating','IP65'],['Operating Temp','−20°C to +45°C'],['Cooling','Liquid Cooled'],['Control Method','10" Touchscreen & IoT Remote Monitoring'],['Dimensions','1850 × 1400 × 2000mm'],['Weight','1,800kg'],['Derating at Altitude','2,000m'],['Certifications','UN38.3 / IEC 62619 / EN62477 / EN61000'],['Warranty','3 Years'],['Battery Life','8–10 Years']
-],
-faqs: [
-{q:'What makes the PRO different from the standard HT375?',a:'The HT375PRO accepts up to 80kW input power (vs 40kW on the standard HT375), enabling faster charging. It also has a larger form factor (1850×1400×2000mm vs 1650×1400×1800mm) at 1,800kg vs 1,500kg. Both deliver the same 375kVA / 300kW output with IP65 protection.'},
-{q:'How long does the PRO battery last?',a:'The HT375PRO uses enhanced LiFePO4 cells rated for 3,500+ cycles, delivering an expected service life of 8–10 years under normal operating conditions — with greater resilience than the standard model.'},
-{q:'Can the HT375PRO power two pieces of equipment simultaneously?',a:'The HT375PRO is optimised for demanding single-equipment applications. For dual crane operations, we recommend the HT500 which is specifically engineered for multi-equipment sites.'},
-{q:'What does the intelligent monitoring system do?',a:'The IMS provides real-time monitoring of all system parameters including state of charge, temperature, power output, and cell health. It includes predictive fault detection and location capabilities, alerting you to potential issues before they cause downtime.'},
-{q:'Can the HT375PRO be charged from renewable sources?',a:'Yes. The HT375PRO is compatible with solar and wind charging systems, as well as standard grid power. It supports flexible charging configurations to suit your site setup.'}
-]
-},
-ht500: {
+es500: {
 label: 'Maximum Power Unit — Flagship',
-name: 'HT500',
+name: 'ES500',
 tagline: 'Maximum output for the largest construction sites',
-desc: "The HT500 is ASENERGY's most powerful system. 500kVA rated output with 600kVA peak, 500kWh battery capacity with 6,000+ cycle life. Suitable for charging at night and discharging during the day, or continuous charge-discharge operation.",
-img: 'ht500.png',
+desc: "The ES500 is ASENERGY's most powerful system. 500kVA rated output with 600kVA peak, 497kWh battery capacity with 6,000+ cycle life. Acts as a power pool to smooth fluctuations, optimise PV and diesel efficiency, and minimise size and fuel consumption. Suitable for tower cranes, mining trucks, mining machinery, and grid integration.",
+img: 'es500.png',
 quickSpecs: [
 {val:'600kVA',lbl:'Peak Output'},
-{val:'500kWh',lbl:'Battery'},
+{val:'497kWh',lbl:'Battery'},
 {val:'500kW',lbl:'Recyclability'},
-{val:'IP55',lbl:'Protection'},
+{val:'IP54',lbl:'Protection'},
 {val:'6,000+',lbl:'Cycles'},
-{val:'9,000kg',lbl:'Weight'}
+{val:'11,000kg',lbl:'Weight'}
 ],
 features: [
 {title:'600kVA Peak Output',desc:'500kVA rated, 600kVA peak (1 minute). The highest power output in the ASENERGY range.',icon:'&#9889;'},
-{title:'500kWh Battery Capacity',desc:'Massive 500kWh battery with 6,000+ cycle life. Charge at night and discharge during the day.',icon:'&#128267;'},
-{title:'500kW Recyclability',desc:'Continuous 500kW regenerative power handling for heavy crane and hoist operations.',icon:'&#127959;&#65039;'},
-{title:'-20°C to +45°C Operating',desc:'Liquid cooled system operates reliably in extreme cold and heat conditions.',icon:'&#127777;&#65039;'},
+{title:'497kWh Battery Capacity',desc:'Massive 497kWh battery with 6,000+ cycle life. Charge at night and discharge during the day.',icon:'&#128267;'},
+{title:'500kW Recyclability',desc:'Continuous 500kW regenerative power handling for heavy crane, mining truck, and machinery operations.',icon:'&#127959;&#65039;'},
+{title:'-20°C to +45°C Operating',desc:'Air cooled system operates reliably across extreme cold and heat conditions.',icon:'&#127777;&#65039;'},
 {title:'Built-In Fire Safety',desc:'Built-in fire extinguishing design ensures the system will not explode or catch fire.',icon:'&#128293;'},
 {title:'4G Remote Monitoring',desc:'IoT remote monitoring via 4G connectivity. Track performance from anywhere.',icon:'&#128225;'}
 ],
 specs: [
-['Maximum Output Power (Peak, 1min)','600kVA'],['Rated Output Power','500kVA'],['Maximum Recyclability','500kW'],['Maximum Output Current (Peak, 1min)','866A @ 400V'],['Maximum Input Power (3-Phase)','0–80kW (Adjustable)'],['Input Current Range (3-Phase)','0–152A (Adjustable)'],['Input Voltage Range','360–440V 3-Phase + PE (No Neutral)'],['Input Frequency Range','45–65Hz'],['Rated Output Voltage','400V 3-Phase + Neutral'],['Output Frequency','50/60Hz'],['Surge Protection','Class C'],['Earthing System','TN-S'],['Battery Capacity','500kWh'],['Battery Life','≥6,000 Cycles'],['IP Rating','IP55'],['Operating Temp','−20°C to +45°C'],['Cooling','Liquid Cooled'],['Remote Monitoring','4G'],['Dimensions','2900 × 2300 × 2400mm'],['Weight','9,000kg'],['Derating at Altitude','2,000m'],['Certifications','UN38.3 / IEC 62619 / EN62477 / EN61000'],['Warranty','3 Years']
+['Maximum Output Power (Peak, 1min)','600kVA'],['Rated Output Power','500kVA'],['Maximum Recyclability','500kW'],['Maximum Output Current (Peak, 1min)','912A @ 380V / 866A @ 400V / 835A @ 415V'],['Output Current (Rated)','760A @ 380V / 722A @ 400V / 696A @ 415V'],['Maximum Input Power (3-Phase)','0–105kW (Adjustable)'],['Input Current Range (3-Phase)','160A @ 380V / 152A @ 400V / 146A @ 415V'],['Input Voltage Range','360–440V 3-Phase + PE (No Neutral)'],['Input Frequency Range','45–65Hz'],['Rated Output Voltage','380/400/415V 3-Phase + Neutral'],['Output Frequency','50/60Hz'],['Surge Protection','Class C'],['Earthing System','TN-S'],['Battery Capacity','497kWh'],['Battery Life','>6,000 Cycles or 5 Year Warranty'],['IP Rating','IP54'],['Operating Temp','−20°C to +45°C'],['Cooling','Air Cooling'],['Remote Monitoring','4G'],['Dimensions','2900 × 2300 × 2470mm'],['Weight','11,000kg'],['Derating at Altitude','2,000m']
 ],
 faqs: [
-{q:'What is the HT500 battery capacity and cycle life?',a:'The HT500 has a 500kWh battery capacity rated for 6,000+ cycles, delivering many years of reliable service life. We provide a 3-year warranty free of charge.'},
-{q:'Can the HT500 charge at night and discharge during the day?',a:'Yes. The HT500 supports two operating scenarios: charging at night and discharging during the day, or continuous charging and discharging. It accepts up to 80kW input power for flexible charging.'},
-{q:'What is the maximum output of the HT500?',a:'The HT500 delivers 500kVA rated output, with a peak of 600kVA for 1 minute. Maximum output current is 866A at 400V. Maximum recyclability is 500kW continuously.'},
-{q:'What fire safety features does the HT500 include?',a:'The battery module has a built-in fire extinguishing design to ensure it will not explode or catch fire in extremely rare cases. The system is certified to UN38.3, IEC 62619, EN62477, and EN61000 standards.'},
-{q:'Can the HT500 be remotely monitored?',a:'Yes. The HT500 includes 4G remote monitoring for real-time tracking of system performance, state of charge, and diagnostics from any location.'}
+{q:'What is the ES500 battery capacity and cycle life?',a:'The ES500 has a 497kWh battery capacity rated for 6,000+ cycles or 5 year warranty, delivering many years of reliable service life.'},
+{q:'What can the ES500 power?',a:'The ES500 is designed for the most demanding applications including tower cranes, mining trucks, mining machinery, and grid integration. It can be paired with PV (solar) and diesel generators to optimise efficiency and reduce fuel use.'},
+{q:'What is the maximum output of the ES500?',a:'The ES500 delivers 500kVA rated output, with a peak of 600kVA for 1 minute. Maximum output current is 912A at 380V. Maximum recyclability is 500kW continuously.'},
+{q:'How does the ES500 reduce fuel consumption?',a:'The ES500 acts as a power pool to smooth fluctuations and optimise PV and diesel efficiency. By smoothing peaks, it allows the use of smaller diesel generators or replaces them entirely when paired with renewable sources, dramatically reducing fuel consumption.'},
+{q:'Can the ES500 be remotely monitored?',a:'Yes. The ES500 includes 4G remote monitoring for real-time tracking of system performance, state of charge, and diagnostics from any location.'}
 ]
 }
 };
@@ -1891,6 +1818,23 @@ if(page === 'home') runCounters();
 setTimeout(function(){ if(typeof initReveal==='function') initReveal(); }, 50);
 }
 
+/* ===== CAROUSEL ===== */
+function carouselGoto(idx){
+var slides = document.querySelectorAll('#carouselTrack .carousel-slide');
+var dots = document.querySelectorAll('#carouselDots .carousel-dot');
+slides.forEach(function(s,i){ s.classList.toggle('active', i===idx); });
+dots.forEach(function(d,i){ d.classList.toggle('active', i===idx); });
+window._carouselIdx = idx;
+}
+function carouselPrev(){
+var i = (window._carouselIdx - 1 + window._carouselTotal) % window._carouselTotal;
+carouselGoto(i);
+}
+function carouselNext(){
+var i = (window._carouselIdx + 1) % window._carouselTotal;
+carouselGoto(i);
+}
+
 function showProductPage(model) {
 var p = products[model];
 if(!p) return;
@@ -1898,8 +1842,23 @@ document.getElementById('detail-label').textContent = p.label;
 document.getElementById('detail-name').innerHTML = p.name;
 document.getElementById('detail-tagline').textContent = p.tagline;
 document.getElementById('detail-desc').textContent = p.desc;
-document.getElementById('detail-img').src = p.img;
-document.getElementById('detail-img').alt = 'ASENERGY ' + p.name;
+// Build carousel
+var imgs = p.images || [p.img];
+var trackHtml = '';
+var dotsHtml = '';
+imgs.forEach(function(src, idx){
+trackHtml += '<div class="carousel-slide' + (idx===0?' active':'') + '"><img src="' + src + '" alt="ASENERGY ' + p.name + '"></div>';
+dotsHtml += '<button class="carousel-dot' + (idx===0?' active':'') + '" onclick="carouselGoto(' + idx + ')" aria-label="Image ' + (idx+1) + '"></button>';
+});
+document.getElementById('carouselTrack').innerHTML = trackHtml;
+document.getElementById('carouselDots').innerHTML = dotsHtml;
+window._carouselIdx = 0;
+window._carouselTotal = imgs.length;
+// Hide arrows if only one image
+var prevBtn = document.querySelector('#detailCarousel .carousel-btn.prev');
+var nextBtn = document.querySelector('#detailCarousel .carousel-btn.next');
+if(imgs.length <= 1){ prevBtn.style.display='none'; nextBtn.style.display='none'; }
+else { prevBtn.style.display='flex'; nextBtn.style.display='flex'; }
 document.getElementById('detail-display-name').textContent = p.name;
 
 var qsHtml = '';
